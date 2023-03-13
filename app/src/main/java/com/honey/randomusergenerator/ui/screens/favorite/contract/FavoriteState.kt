@@ -5,5 +5,6 @@ import com.honey.randomusergenerator.ui.base.ViewState
 
 sealed class FavoriteState : ViewState {
     object EmptyUsersList : FavoriteState()
+    object Loading: FavoriteState()
     data class ShowUsers(val users: List<User>) : FavoriteState()
 }

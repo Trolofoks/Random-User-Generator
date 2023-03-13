@@ -10,13 +10,6 @@ import org.koin.androidx.compose.getViewModel
 fun EditorScreenDestination(navController: NavController){
     val viewModel = getViewModel<EditorViewModel>()
     EditorScreen(
-        state = viewModel.viewState.value,
-        effectFlow = viewModel.effect,
-        onEventSend = { event ->
-            viewModel.sendEvent(event)
-        },
-        onNavigationRequested {navEffect ->
-
-        }
+        state = viewModel.viewState
     )
 }
