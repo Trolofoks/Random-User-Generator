@@ -1,11 +1,10 @@
 package com.honey.randomusergenerator.ui.base
 
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.channels.BufferOverflow
+import com.honey.randomusergenerator.ui.screens.editor.contract.EditorState
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -17,24 +16,34 @@ interface ViewEffect
 
 const val SIDE_EFFECT_KEY = "non-typical-unique-key"
 
-abstract class BaseViewModel<Event: ViewEvent, UiState:ViewState, Effect:ViewEffect>: ViewModel() {
+abstract class BaseViewModel<Event: ViewEvent, UiState: ViewState, Effect:ViewEffect>(
+    initialState: UiState
+): ViewModel() {
 
-    abstract fun setInitialState(): UiState
     abstract fun obtainEvent(event: Event)
 
-    private val initialState: UiState by lazy { setInitialState() }
-
-    private val _viewState = mutableStateOf(initialState)
-    val viewState: State<UiState> = _viewState
+    //TODO(Learn about "get" and "set" methods)
+    private val _viewState = mutableStateOf<UiState>(initialState)
+    var viewState: UiState
+        get() = _viewState.value
+        set(value) { _viewState.value = value }
 
     private val _event = MutableSharedFlow<Event>()
     val event : SharedFlow<Event> = _event.asSharedFlow()
 
-    private val _effect = MutableSharedFlow<Effect>(extraBufferCapacity = 1)//TODO(try to delete capacity)
+    private val _effect = MutableSharedFlow<Effect>(replay = 1)//TODO(try to delete replay)
     val effect : SharedFlow<Effect> = _effect.asSharedFlow()
 
     init {
+        subscribeToEvents()
+    }
 
+    private fun subscribeToEvents(){
+        viewModelScope.launch {
+            _event.collect(){event->
+                obtainEvent(event)
+            }
+        }
     }
 
     //TODO(may add return Boolean use .equals)
@@ -46,8 +55,9 @@ abstract class BaseViewModel<Event: ViewEvent, UiState:ViewState, Effect:ViewEff
     }
 
     //TODO(разберись как это работает, пока что все что я понял, так это так выглядит чтобы не передать state из Editor в Favorite)
-    protected fun setState(reducer: UiState.()-> UiState){
-        val newState = viewState.value.reducer()
-        _viewState.value = newState
-    }
+//    protected fun setState(reducer: UiState.()-> UiState){
+//        val newState = viewState.value.reducer()
+//        _viewState.value = newState
+//    }
+
 }
