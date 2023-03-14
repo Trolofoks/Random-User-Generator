@@ -10,5 +10,5 @@ import org.koin.androidx.compose.getViewModel
 fun FavoriteScreenDestination(navController: NavController){
     val viewModel = getViewModel<FavoriteViewModel>()
 
-    FavoriteScreen()
+//    FavoriteScreen()
 }
