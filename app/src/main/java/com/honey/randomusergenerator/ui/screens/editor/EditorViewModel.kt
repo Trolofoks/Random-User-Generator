@@ -12,10 +12,10 @@ class EditorViewModel(
 ) {
 
     override fun obtainEvent(event: EditorEvent) {
-        when(viewState){
-            is EditorState.ShowEditor -> {reduce(event, viewState as EditorState.ShowEditor)}
-            is EditorState.Error -> {reduce(event, viewState as EditorState.Error)}
-            is EditorState.Saving -> {reduce(event, viewState as EditorState.Saving)}
+        when(val state = viewState){
+            is EditorState.ShowEditor -> {reduce(event, state)}
+            is EditorState.Error -> {reduce(event, state)}
+            is EditorState.Saving -> {reduce(event, state)}
         }
     }
 
