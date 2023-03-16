@@ -12,7 +12,7 @@ fun FavoriteScreen(
     state: State<FavoriteState>,
     effect: State<FavoriteEffect?>,
     onEventSend: (event: FavoriteEvent) -> Unit,
-    onNavigationRequested: (navEffect: EditorEffect) -> Unit
+    onSettingsClick: (String) -> Unit
 ) {
     when(val state = state.value){
         is FavoriteState.Empty -> {}

@@ -13,7 +13,7 @@ fun EditorScreen(
     state: State<EditorState>,
     effect: State<EditorEffect?>,
     onEventSent: (event: EditorEvent)-> Unit,
-    onNavigationRequested: (navEffect: EditorEffect) -> Unit
+    onSettingsClick: (String) -> Unit
 ){
     when(val state = state.value){
         is EditorState.ShowEditor -> {

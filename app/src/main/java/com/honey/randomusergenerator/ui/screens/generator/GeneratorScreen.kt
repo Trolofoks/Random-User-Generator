@@ -12,7 +12,7 @@ fun GeneratorScreen(
     state: State<GeneratorState>,
     effect: State<GeneratorEffect?>,
     onEventSent: (event: GeneratorEvent)-> Unit,
-    onNavigationRequested: (navEffect: GeneratorEffect) -> Unit
+    onSettingsClick: (String) -> Unit
 ) {
     when(val state = state.value){
         is GeneratorState.Generating -> {}

@@ -13,7 +13,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.honey.randomusergenerator.ui.navigation.destination.EditorScreenDestination
+import com.honey.randomusergenerator.ui.navigation.navscreen.editorScreen
+import com.honey.randomusergenerator.ui.navigation.route.FavoriteRoute
+import com.honey.randomusergenerator.ui.navigation.route.GeneratorRoute
 
 @Composable
 fun AppNavigation(){
@@ -53,20 +55,16 @@ fun AppNavigation(){
             startDestination = Screens.Generator.route,
             modifier = Modifier.padding(innerPadding)
         ){
-            composable(
-                route = Screens.Generator.route
-            ){
-                GeneratorScreenDestination(navController)
-            }
+            editorScreen(onSettingsClick = {})
             composable(
                 route = Screens.Editor.route
             ){
-                EditorScreenDestination(navController)
+                GeneratorRoute(navController)
             }
             composable(
                 route = Screens.Favorite.route
             ){
-                FavoriteScreenDestination(navController)
+                FavoriteRoute(navController)
             }
         }
     }
