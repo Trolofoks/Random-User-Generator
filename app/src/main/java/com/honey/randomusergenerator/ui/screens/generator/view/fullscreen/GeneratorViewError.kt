@@ -1,14 +1,12 @@
 package com.honey.randomusergenerator.ui.screens.generator.view.fullscreen
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Update
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -30,12 +28,18 @@ fun GeneratorViewError(
 ) {
     val retrying = remember { mutableStateOf(false  )}
     val refreshTrigger = remember { mutableStateOf(0)}
-    RefreshTimer(refresh = retrying, trigger = refreshTrigger)
 
-    Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center){
+    LaunchedEffect(refreshTrigger.value) {
+        //TODO(add real refresh)
+        retrying.value = true
+        delay(5000)
+        retrying.value = false
+    }
+
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
         Card(modifier = Modifier.fillMaxWidth(0.9f)) {
             Column(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth().padding(vertical = 32.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
@@ -44,20 +48,16 @@ fun GeneratorViewError(
                 )
                 Text(text = "Retry?", style = MaterialTheme.typography.bodySmall)
                 Box(
-                    modifier = Modifier.size(64.dp),
+                    modifier = Modifier.height(64.dp).padding(top = 8.dp),
+                    contentAlignment = Alignment.Center,
                     content = {
                     if (retrying.value){
                         CircularProgressIndicator(
                             modifier = Modifier.size(56.dp),
                         )
                     } else {
-                        IconButton(
-                            modifier = Modifier.size(64.dp),
-                            onClick = {
-                            refreshTrigger.value++
-                        }) {
-                            Icon(painter = rememberVectorPainter(image = Icons.Default.Update),
-                                contentDescription = "refresh")
+                        Button(onClick = { refreshTrigger.value++ }) {
+                            Text(text = "Refresh!")
                         }
                     }
                 })
