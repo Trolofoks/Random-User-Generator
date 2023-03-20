@@ -15,10 +15,12 @@ fun GeneratorScreen(
     onSettingsClick: (String) -> Unit
 ) {
     when(val state = state.value){
-        is GeneratorState.Generating -> {}
+        GeneratorState.Generating -> {}
         is GeneratorState.ShowUsers -> {}
         is GeneratorState.Error -> {}
-        is GeneratorState.Empty -> {}
+        GeneratorState.Empty -> {
+
+        }
     }
 
     when(val effect = effect.value){
