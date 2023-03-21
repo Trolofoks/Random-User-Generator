@@ -5,7 +5,7 @@ import com.honey.randomusergenerator.ui.screens.generator.contract.GeneratorEffe
 import com.honey.randomusergenerator.ui.screens.generator.contract.GeneratorEvent
 import com.honey.randomusergenerator.ui.screens.generator.contract.GeneratorState
 
-class GeneratorViewModel():BaseViewModel<GeneratorEvent,GeneratorState,GeneratorEffect>(initialState = GeneratorState.Generating) {
+class GeneratorViewModel():BaseViewModel<GeneratorEvent,GeneratorState,GeneratorEffect>(initialState = GeneratorState.Empty) {
     override fun obtainEvent(event: GeneratorEvent) {
         when(val state = viewState){
             is GeneratorState.Generating -> reduce(event, state)
@@ -25,6 +25,11 @@ class GeneratorViewModel():BaseViewModel<GeneratorEvent,GeneratorState,Generator
 
     }
     private fun reduce(event: GeneratorEvent, currentState: GeneratorState.Empty){
+        when(event){
+            is GeneratorEvent.Generate -> {
 
+            }
+            else -> {}
+        }
     }
 }

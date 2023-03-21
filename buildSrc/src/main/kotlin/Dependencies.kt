@@ -5,6 +5,8 @@ object Dependencies {
         const val library = "com.android.library"
         const val kotlinAndroid = "org.jetbrains.kotlin.android"
         const val kotlinKapt = "org.jetbrains.kotlin.kapt"
+        const val relay = "com.google.relay"
+        const val relayVersion = "0.3.04"
     }
 
     object ClassPath {
@@ -47,8 +49,6 @@ object Dependencies {
         const val composeMaterialWindow = "androidx.compose.material3:material3-window-size-class:$versionMaterial"
         const val uiTooling = "androidx.compose.ui:ui-tooling:$version"
         const val uiToolingPreview = "androidx.compose.ui:ui-tooling-preview:$version"
-        const val material = "androidx.compose.material:material:$version"
-        const val materialIconsExtended = "androidx.compose.material:material-icons-extended:$version"
     }
 
     object Navigation {
@@ -69,7 +69,6 @@ object Dependencies {
         const val version = "2.2.2"
 
         const val coilCompose = "io.coil-kt:coil-compose:$version"
-//        const val compose = "implementation io.coil-kt:coil-compose:$version"
     }
 
     object Room{
@@ -87,6 +86,7 @@ object Dependencies {
         const val koin = "io.insert-koin:koin-android:$version"
         const val compose = "io.insert-koin:koin-androidx-compose:$versionCompose"
     }
+
 
     object Test {
         object Version {

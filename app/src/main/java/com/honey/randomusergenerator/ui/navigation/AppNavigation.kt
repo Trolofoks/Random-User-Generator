@@ -1,7 +1,7 @@
 package com.honey.randomusergenerator.ui.navigation
 
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -19,22 +19,26 @@ import com.honey.randomusergenerator.ui.navigation.navscreen.generatorScreen
 import com.honey.randomusergenerator.ui.navigation.route.FavoriteRoute
 import com.honey.randomusergenerator.ui.navigation.route.GeneratorRoute
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppNavigation(){
     val items = listOf(
-        Screens.Editor,
+        Screens.Favorite,
         Screens.Generator,
-        Screens.Favorite
+        Screens.Editor
     )
     val navController = rememberNavController()
 
+
     Scaffold(
+        contentColor = MaterialTheme.colorScheme.onBackground,
         bottomBar = {
-            BottomNavigation {
+            NavigationBar {
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentDestination = navBackStackEntry?.destination
+
                 items.forEach{screen->
-                    BottomNavigationItem(
+                    NavigationBarItem(
                         icon = { Icon(painterResource(id = screen.iconId), contentDescription = "BottomIcon")},
                         label = { Text(stringResource(id = screen.stringId))},
                         selected = currentDestination?.hierarchy?.any {it.route == screen.route} == true,
@@ -50,6 +54,28 @@ fun AppNavigation(){
                     )
                 }
             }
+//            BottomNavigation(
+//                backgroundColor = MaterialTheme.colorScheme.onSecondary
+//            ) {
+//                val navBackStackEntry by navController.currentBackStackEntryAsState()
+//                val currentDestination = navBackStackEntry?.destination
+//                items.forEach{screen->
+//                    BottomNavigationItem(
+//                        icon = { Icon(painterResource(id = screen.iconId), contentDescription = "BottomIcon")},
+//                        label = { Text(stringResource(id = screen.stringId))},
+//                        selected = currentDestination?.hierarchy?.any {it.route == screen.route} == true,
+//                        onClick = {
+//                            navController.navigate(screen.route) {
+//                                popUpTo(navController.graph.findStartDestination().id){
+//                                    saveState = true
+//                                }
+//                                launchSingleTop = true
+//                                restoreState = true
+//                            }
+//                        }
+//                    )
+//                }
+//            }
         }
     ) {innerPadding->
         NavHost(

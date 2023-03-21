@@ -5,6 +5,10 @@ import androidx.compose.runtime.State
 import com.honey.randomusergenerator.ui.screens.generator.contract.GeneratorEffect
 import com.honey.randomusergenerator.ui.screens.generator.contract.GeneratorEvent
 import com.honey.randomusergenerator.ui.screens.generator.contract.GeneratorState
+import com.honey.randomusergenerator.ui.screens.generator.view.fullscreen.GeneratorViewEmpty
+import com.honey.randomusergenerator.ui.screens.generator.view.fullscreen.GeneratorViewError
+import com.honey.randomusergenerator.ui.screens.generator.view.fullscreen.GeneratorViewGenerating
+import com.honey.randomusergenerator.ui.screens.generator.view.fullscreen.GeneratorViewShowUsers
 
 
 @Composable
@@ -15,11 +19,21 @@ fun GeneratorScreen(
     onSettingsClick: (String) -> Unit
 ) {
     when(val state = state.value){
-        GeneratorState.Generating -> {}
-        is GeneratorState.ShowUsers -> {}
-        is GeneratorState.Error -> {}
-        GeneratorState.Empty -> {
-
+        is GeneratorState.Generating -> {
+            GeneratorViewGenerating()
+        }
+        is GeneratorState.ShowUsers -> {
+            GeneratorViewShowUsers()
+        }
+        is GeneratorState.Error -> {
+            GeneratorViewError()
+        }
+        is GeneratorState.Empty -> {
+            GeneratorViewEmpty(
+                onGenerate = {
+                    onEventSent.invoke(GeneratorEvent.Generate)
+                }
+            )
         }
     }
 

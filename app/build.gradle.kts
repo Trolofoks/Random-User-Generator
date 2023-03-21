@@ -2,6 +2,7 @@ plugins {
     id (Dependencies.Plugins.application)
     id (Dependencies.Plugins.kotlinAndroid)
     id (Dependencies.Plugins.kotlinKapt)
+    id (Dependencies.Plugins.relay) version Dependencies.Plugins.relayVersion
 }
 
 android {
@@ -60,8 +61,8 @@ dependencies {
 
     implementation(Dependencies.Compose.uiTooling)
     implementation(Dependencies.Compose.uiToolingPreview)
-    implementation(Dependencies.Compose.material)
-    implementation(Dependencies.Compose.materialIconsExtended)
+//    implementation(Dependencies.Compose.material)
+//    implementation(Dependencies.Compose.materialIconsExtended)
     implementation(Dependencies.Compose.composeMaterial)
     implementation(Dependencies.Compose.composeMaterialWindow)
 

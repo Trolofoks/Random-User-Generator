@@ -1,5 +1,7 @@
 package com.honey.randomusergenerator.di
 
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -21,5 +23,13 @@ val appModule = module {
 
     single {
 //        get<Retrofit>().create(TODO())
+    }
+    suspend fun <T> makeApiCall(
+        dispatcher: CoroutineDispatcher,
+        call: suspend () -> T
+    ): Result<T> = runCatching {
+        withContext(dispatcher) {
+            call.invoke()
+        }
     }
 }

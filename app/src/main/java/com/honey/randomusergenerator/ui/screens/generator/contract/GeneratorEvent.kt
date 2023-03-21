@@ -6,4 +6,5 @@ import com.honey.randomusergenerator.ui.base.ViewEvent
 sealed class GeneratorEvent : ViewEvent{
     data class SaveToFav(val user: User): GeneratorEvent()
     object Regenerate: GeneratorEvent()
+    object Generate: GeneratorEvent()
 }
