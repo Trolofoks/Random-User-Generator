@@ -28,7 +28,7 @@ fun BigInfoCardView(user: User) {
                 Box (contentAlignment = Alignment.Center, modifier = Modifier.align(Alignment.CenterHorizontally)){
                     CircularProgressIndicator(Modifier.size(98.dp))
                     Image(
-                        painter = rememberAsyncImagePainter(user.avatarUrl),
+                        painter = rememberAsyncImagePainter(user.avatarURL),
                         contentDescription = "Avatar",
                         modifier = Modifier
                             .size(128.dp)
@@ -77,7 +77,7 @@ private fun InfoItem(paramName: String, paramValue: String){
 fun GICVPreview() {
     BigInfoCardView(
         user = User(
-            avatarUrl = "https://randomuser.me/api/portraits/med/men/75.jpg",
+            avatarURL = "https://randomuser.me/api/portraits/med/men/75.jpg",
             name = "Misty Cooper",
             email = "mistycooper@example.com",
             birthday = "2/4/1949",
