@@ -41,7 +41,7 @@ fun SmallUserCardView(
                     Image(
                         modifier = Modifier
                             .size(64.dp),
-                        painter = rememberAsyncImagePainter(user.imageURL),
+                        painter = rememberAsyncImagePainter(user.avatarURL),
                         contentDescription = "Avatar"
                     )
                     CircularProgressIndicator(modifier = Modifier.size(54.dp))
@@ -75,7 +75,7 @@ fun SmallUserCardView(
 @Composable
 fun SUCVPreview() {
     SmallUserCardView(user = User(
-        imageURL = "https://randomuser.me/api/portraits/med/men/75.jpg",
+        avatarURL = "https://randomuser.me/api/portraits/med/men/75.jpg",
         name = "Test Name",
         email = "testemail@example.com",
         birthday = "7/2/1989",

@@ -23,10 +23,10 @@ fun GeneratorScreen(
             GeneratorViewGenerating()
         }
         is GeneratorState.ShowUsers -> {
-            GeneratorViewShowUsers()
+            //GeneratorViewShowUsers()
         }
         is GeneratorState.Error -> {
-            GeneratorViewError()
+            //GeneratorViewError()
         }
         is GeneratorState.Empty -> {
             GeneratorViewEmpty(
