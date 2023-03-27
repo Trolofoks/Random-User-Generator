@@ -16,13 +16,15 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun GeneratorViewError(
-    state: GeneratorState.Error
+    state: GeneratorState.Error,
+    onRefresh: (() -> Unit)? = null
 ) {
     val retrying = remember { mutableStateOf(false  )}
     val refreshTrigger = remember { mutableStateOf(0)}
 
     LaunchedEffect(refreshTrigger.value) {
         //TODO(add real refresh)
+        onRefresh?.invoke()
         retrying.value = true
         delay(5000)
         retrying.value = false

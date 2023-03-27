@@ -20,19 +20,41 @@ fun GeneratorScreen(
 ) {
     when(val state = state.value){
         is GeneratorState.Generating -> {
-            GeneratorViewGenerating()
+            GeneratorViewGenerating(
+                state = state
+            )
         }
         is GeneratorState.ShowUsers -> {
-            //GeneratorViewShowUsers()
+            GeneratorViewShowUsers(
+                state = state,
+                onFavAdd = { user, add ->
+                    onEventSent.invoke(GeneratorEvent.Favorite(user,add))
+                },
+                onFullInfoClick = {fullUser->
+                    onEventSent.invoke(GeneratorEvent.FullInfoClick(fullUser))
+                },
+                onHideFullInfo = {
+                    onEventSent.invoke(GeneratorEvent.HideFullInfo)
+                },
+                regenerate = {amount ->
+                    onEventSent.invoke(GeneratorEvent.Regenerate(amount))
+                }
+            )
         }
         is GeneratorState.Error -> {
-            //GeneratorViewError()
+            GeneratorViewError(
+                state = state,
+                onRefresh = {
+                    onEventSent.invoke(GeneratorEvent.Refresh)
+                }
+            )
         }
         is GeneratorState.Empty -> {
             GeneratorViewEmpty(
-                onGenerate = {
-                    onEventSent.invoke(GeneratorEvent.Generate)
-                }
+                state = state,
+                onGenerate = {amount->
+                    onEventSent.invoke(GeneratorEvent.Generate(amount))
+                },
             )
         }
     }

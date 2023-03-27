@@ -1,16 +1,27 @@
 package com.honey.data.external
 
+import com.honey.data.model.User
+import java.io.IOException
+
 
 class RandomRepositoryImpl (
     private val api: RandomUserApi
 ) : RandomRepository {
 
     override suspend fun getUser(): User {
-        return api.getUser()
+        try {
+            return api.getUser()
+        } catch(e: IOException) {
+            throw e
+        }
     }
 
     override suspend fun getUsers(amount: Int): List<User> {
-        return api.getUsers(amount.toString())
+        try {
+            return api.getUsers(amount.toString())
+        }catch(e: IOException) {
+            throw e
+        }
     }
 
 }

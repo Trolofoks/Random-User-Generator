@@ -2,7 +2,7 @@ package com.honey.randomusergenerator.app
 
 import android.app.Application
 import com.honey.randomusergenerator.di.appModule
-import com.honey.randomusergenerator.di.repositoryModule
+import com.honey.randomusergenerator.di.dataModule
 import com.honey.randomusergenerator.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -21,6 +21,6 @@ class App: Application() {
 }
 val appModules = listOf(
     appModule,
-    repositoryModule,
+    dataModule,
     viewModelModule
 )

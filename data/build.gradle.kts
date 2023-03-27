@@ -40,6 +40,10 @@ dependencies {
     implementation(Dependencies.Core.appCompat)
     implementation(Dependencies.Core.androidMaterial)
 
+    implementation(Dependencies.Room.ktx)
+    implementation(Dependencies.Room.compiler)
+    implementation(Dependencies.Room.runtime)
+
     implementation(Dependencies.Retrofit.retrofit)
     implementation(Dependencies.Retrofit.retrofitConverterGson)
 

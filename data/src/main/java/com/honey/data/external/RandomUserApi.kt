@@ -1,7 +1,6 @@
 package com.honey.data.external
 
-import com.honey.data.external.Endpoints
-import com.honey.data.external.User
+import com.honey.data.model.User
 import retrofit2.http.GET
 import retrofit2.http.Path
 

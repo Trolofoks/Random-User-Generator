@@ -54,6 +54,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":data"))
+
     implementation(Dependencies.Core.coreKts)
     implementation(Dependencies.Core.appCompat)
     implementation(Dependencies.Core.androidMaterial)

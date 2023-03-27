@@ -1,5 +1,6 @@
 package com.honey.randomusergenerator.di
 
+import com.honey.data.external.RandomUserApi
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
@@ -22,8 +23,10 @@ val appModule = module {
     }
 
     single {
-//        get<Retrofit>().create(TODO())
+        get<Retrofit>().create(RandomUserApi::class.java)
     }
+
+    //TODO
     suspend fun <T> makeApiCall(
         dispatcher: CoroutineDispatcher,
         call: suspend () -> T
