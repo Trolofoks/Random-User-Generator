@@ -20,20 +20,22 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
+import com.google.relay.compose.BoxScopeInstanceImpl.align
 import com.honey.randomusergenerator.data.model.User
 
 @Composable
 fun BigInfoCardView(
     user: User,
-    favorite: ((user: User, add: Boolean) -> Unit?)? = null
+    favorite: ((user: User, add: Boolean) -> Unit?)? = null,
+    modifier: Modifier = Modifier
 ) {
 
 
     val addInFavChecked = remember { mutableStateOf(false) }
 
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+    Box(modifier = modifier.align(Alignment.Center), contentAlignment = Alignment.Center) {
 
-        Card(modifier = Modifier.fillMaxWidth(0.9f)) {
+        Card(modifier = Modifier.fillMaxWidth()) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()

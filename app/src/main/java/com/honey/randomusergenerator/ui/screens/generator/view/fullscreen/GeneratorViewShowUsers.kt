@@ -37,7 +37,7 @@ fun GeneratorViewShowUsers(
     Surface(modifier = modifier.fillMaxSize()) {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
             LazyColumn(
-                modifier = Modifier.fillMaxWidth(0.9f),
+                modifier = Modifier.fillMaxWidth(0.95f),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 if (userList.size > 1){
@@ -53,7 +53,7 @@ fun GeneratorViewShowUsers(
                     if (userList.isNotEmpty()){
                         item { BigInfoCardView(user = userList[0], favorite = {user, fav ->
                             onFavAdd(user, fav)
-                        }) }
+                        }, modifier = Modifier.fillMaxWidth(0.98f)) }
                     }
                 }
             }
@@ -68,10 +68,10 @@ fun GeneratorViewShowUsers(
                 ) {
                     BigInfoCardView(user = fullUser, favorite = { user, fav ->
                         onFavAdd.invoke(user, fav)
-                    })
+                    }, modifier = Modifier.fillMaxWidth(0.95f).clickable(enabled = false){})
                 }
             }
-            RegenerateRowButton(modifier = Modifier.align(Alignment.BottomCenter),
+            RegenerateRowButton(modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 12.dp),
             onClick = {amount ->
                 regenerate.invoke(amount)
             }

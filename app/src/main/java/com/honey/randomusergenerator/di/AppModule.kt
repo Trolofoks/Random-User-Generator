@@ -1,6 +1,8 @@
 package com.honey.randomusergenerator.di
 
+import com.honey.data.external.Endpoints
 import com.honey.data.external.RandomUserApi
+import com.honey.data.model.Constance
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
@@ -16,7 +18,7 @@ val appModule = module {
 
     single {
         Retrofit.Builder()
-            .baseUrl("TODO")
+            .baseUrl(Endpoints.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(get())
             .build()

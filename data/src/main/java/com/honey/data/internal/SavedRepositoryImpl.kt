@@ -16,4 +16,9 @@ class SavedRepositoryImpl(private val savedDatabase: SavedDatabase): SavedReposi
     override suspend fun getAllUsers(): List<User> {
         return dao.getAllUsers() ?: emptyList()
     }
+
+    override suspend fun deleteUser(user: User): Boolean {
+        dao.deleteUser(user)
+        return true
+    }
 }

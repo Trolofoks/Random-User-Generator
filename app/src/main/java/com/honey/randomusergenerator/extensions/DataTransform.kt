@@ -28,7 +28,7 @@ fun User.toDataUser(): com.honey.data.model.User {
     )
 }
 
-fun List<com.honey.data.model.User>.toAppUser(): List<User> {
+fun List<com.honey.data.model.User>.toAppUsers(): List<User> {
     return map { userData ->
         User(
             avatarURL = userData.pictureUrl,

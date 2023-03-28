@@ -1,9 +1,6 @@
 package com.honey.data.internal.sql
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.honey.data.model.User
 
 @Dao
@@ -13,4 +10,7 @@ interface UserDao {
 
     @Query("SELECT * FROM users")
     suspend fun getAllUsers(): List<User>?
+
+    @Delete
+    suspend fun deleteUser(user:User)
 }

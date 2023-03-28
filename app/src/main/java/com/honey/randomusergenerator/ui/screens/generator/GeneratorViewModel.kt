@@ -1,9 +1,11 @@
 package com.honey.randomusergenerator.ui.screens.generator
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.honey.data.external.RandomRepository
 import com.honey.data.internal.SavedRepository
-import com.honey.randomusergenerator.extensions.toAppUser
+import com.honey.randomusergenerator.data.model.User
+import com.honey.randomusergenerator.extensions.toAppUsers
 import com.honey.randomusergenerator.ui.base.BaseViewModel
 import com.honey.randomusergenerator.ui.screens.generator.contract.GeneratorEffect
 import com.honey.randomusergenerator.ui.screens.generator.contract.GeneratorEvent
@@ -30,9 +32,15 @@ class GeneratorViewModel(
     private fun reduce(event: GeneratorEvent, currentState: GeneratorState.ShowUsers){
         when(event){
             is GeneratorEvent.Favorite -> {}
-            is GeneratorEvent.FullInfoClick -> {}
-            is GeneratorEvent.HideFullInfo -> {}
-            is GeneratorEvent.Regenerate -> {}
+            is GeneratorEvent.FullInfoClick -> {
+                performFullInfoClick(event.user, currentState)
+            }
+            is GeneratorEvent.HideFullInfo -> {
+                performHideFullInfo(currentState)
+            }
+            is GeneratorEvent.Regenerate -> {
+                performServerQuery(amount = event.amount)
+            }
 
             else -> {}
         }
@@ -45,17 +53,31 @@ class GeneratorViewModel(
     }
     private fun reduce(event: GeneratorEvent, currentState: GeneratorState.Empty){
         when(event){
-            is GeneratorEvent.Generate -> {}
+            is GeneratorEvent.Generate -> {
+                performServerQuery(event.amount)
+            }
             else -> {}
+        }
+    }
+
+    private fun performFullInfoClick(user: User, currentState: GeneratorState.ShowUsers){
+        currentState.let {
+            viewState = GeneratorState.ShowUsers(users = it.users, selectedUser = user)
+        }
+    }
+
+    private fun performHideFullInfo(currentState: GeneratorState.ShowUsers){
+        currentState.let {
+            viewState = GeneratorState.ShowUsers(users = it.users, selectedUser = null)
         }
     }
 
     private fun performServerQuery(amount: Int){
         viewModelScope.launch {
-            val gotUsers = randomRepository.getUsers(1).toAppUser()
+            //TODO(more than 1)
+            val gotUsers = randomRepository.getUsers(amount)
             if (gotUsers.isNotEmpty()){
-
-                viewState = GeneratorState.ShowUsers(gotUsers)
+                viewState = GeneratorState.ShowUsers(gotUsers.toAppUsers())
             }
         }
     }
