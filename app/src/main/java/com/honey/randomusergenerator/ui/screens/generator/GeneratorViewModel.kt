@@ -1,14 +1,20 @@
 package com.honey.randomusergenerator.ui.screens.generator
 
+import androidx.lifecycle.viewModelScope
 import com.honey.data.external.RandomRepository
+import com.honey.data.internal.SavedRepository
+import com.honey.randomusergenerator.extensions.toAppUser
 import com.honey.randomusergenerator.ui.base.BaseViewModel
 import com.honey.randomusergenerator.ui.screens.generator.contract.GeneratorEffect
 import com.honey.randomusergenerator.ui.screens.generator.contract.GeneratorEvent
 import com.honey.randomusergenerator.ui.screens.generator.contract.GeneratorState
+import kotlinx.coroutines.launch
 
 class GeneratorViewModel(
-    private val randomRepository: RandomRepository
+    private val randomRepository: RandomRepository,
+    private val savedRepository: SavedRepository
 ):BaseViewModel<GeneratorEvent,GeneratorState,GeneratorEffect>(initialState = GeneratorState.Empty) {
+
     override fun obtainEvent(event: GeneratorEvent) {
         when(val state = viewState){
             is GeneratorState.Generating -> reduce(event, state)
@@ -44,7 +50,13 @@ class GeneratorViewModel(
         }
     }
 
-    private fun performServerQuery(){
+    private fun performServerQuery(amount: Int){
+        viewModelScope.launch {
+            val gotUsers = randomRepository.getUsers(1).toAppUser()
+            if (gotUsers.isNotEmpty()){
 
+                viewState = GeneratorState.ShowUsers(gotUsers)
+            }
+        }
     }
 }

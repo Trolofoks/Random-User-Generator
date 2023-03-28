@@ -1,17 +1,11 @@
 package com.honey.data.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
 
-data class User(
-    val picture: String,
-    val name: String,
-    val email: String,
-    val birthday: String,
-    val address: String,
-    val number: String,
-    val password: String
-)
 
-@Entity(tableName = "users")
+@Entity(tableName = Constance.TABLE_NAME)
 data class User(
     @PrimaryKey(autoGenerate = true) val id: Int? = null,
     @SerializedName("picture") val pictureUrl: String,

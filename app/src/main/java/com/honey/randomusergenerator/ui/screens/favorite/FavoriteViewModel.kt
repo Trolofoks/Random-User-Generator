@@ -1,11 +1,14 @@
 package com.honey.randomusergenerator.ui.screens.favorite
 
+import com.honey.data.internal.SavedRepository
 import com.honey.randomusergenerator.ui.base.BaseViewModel
 import com.honey.randomusergenerator.ui.screens.favorite.contract.FavoriteEffect
 import com.honey.randomusergenerator.ui.screens.favorite.contract.FavoriteEvent
 import com.honey.randomusergenerator.ui.screens.favorite.contract.FavoriteState
 
-class FavoriteViewModel(): BaseViewModel<FavoriteEvent,FavoriteState,FavoriteEffect>(
+class FavoriteViewModel(
+    private val savedRepository: SavedRepository
+): BaseViewModel<FavoriteEvent,FavoriteState,FavoriteEffect>(
     initialState = FavoriteState.Loading
 ){
     override fun obtainEvent(event: FavoriteEvent) {

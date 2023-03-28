@@ -1,12 +1,13 @@
 package com.honey.randomusergenerator.ui.screens.editor
 
+import com.honey.data.internal.SavedRepository
 import com.honey.randomusergenerator.ui.base.BaseViewModel
 import com.honey.randomusergenerator.ui.screens.editor.contract.EditorEffect
 import com.honey.randomusergenerator.ui.screens.editor.contract.EditorEvent
 import com.honey.randomusergenerator.ui.screens.editor.contract.EditorState
 
 class EditorViewModel(
-    //TODO(repository)
+    private val savedRepository: SavedRepository
 ):BaseViewModel<EditorEvent, EditorState, EditorEffect>(
     initialState = EditorState.ShowEditor
 ) {

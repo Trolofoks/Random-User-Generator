@@ -8,12 +8,19 @@ import org.koin.dsl.module
 
 val viewModelModule = module {
     viewModel {
-        GeneratorViewModel(randomRepository = get())
+        GeneratorViewModel(
+            randomRepository = get(),
+            savedRepository = get()
+        )
     }
     viewModel {
-        FavoriteViewModel()
+        FavoriteViewModel(
+            savedRepository = get()
+        )
     }
     viewModel {
-        EditorViewModel()
+        EditorViewModel(
+            savedRepository = get()
+        )
     }
 }

@@ -1,13 +1,19 @@
 package com.honey.data.internal
 
+import com.honey.data.internal.sql.SavedDatabase
+import com.honey.data.internal.sql.UserDao
 import com.honey.data.model.User
+import java.io.IOException
 
-class SavedRepositoryImpl(): SavedRepository {
+class SavedRepositoryImpl(private val savedDatabase: SavedDatabase): SavedRepository {
+    private val dao: UserDao by lazy { savedDatabase.userDao() }
+
     override suspend fun saveUser(user: User): Boolean {
-        TODO("Not yet implemented")
+        dao.saveUser(user)
+        return true
     }
 
     override suspend fun getAllUsers(): List<User> {
-        TODO("Not yet implemented")
+        return dao.getAllUsers() ?: emptyList()
     }
 }

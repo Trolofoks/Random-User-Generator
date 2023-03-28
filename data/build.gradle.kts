@@ -41,7 +41,7 @@ dependencies {
     implementation(Dependencies.Core.androidMaterial)
 
     implementation(Dependencies.Room.ktx)
-    implementation(Dependencies.Room.compiler)
+    kapt(Dependencies.Room.compiler)
     implementation(Dependencies.Room.runtime)
 
     implementation(Dependencies.Retrofit.retrofit)
