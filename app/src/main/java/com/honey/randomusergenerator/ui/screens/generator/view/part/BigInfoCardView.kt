@@ -20,7 +20,6 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
-import com.google.relay.compose.BoxScopeInstanceImpl.align
 import com.honey.randomusergenerator.data.model.User
 
 @Composable
@@ -33,60 +32,64 @@ fun BigInfoCardView(
 
     val addInFavChecked = remember { mutableStateOf(false) }
 
-    Box(modifier = modifier.align(Alignment.Center), contentAlignment = Alignment.Center) {
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
+        Box(modifier = modifier, contentAlignment = Alignment.Center) {
 
-        Card(modifier = Modifier.fillMaxWidth()) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(12.dp)
-            ) {
-                Box(
-                    contentAlignment = Alignment.Center,
+            Card(modifier = Modifier.fillMaxWidth()) {
+                Column(
                     modifier = Modifier
-                        .align(Alignment.CenterHorizontally)
                         .fillMaxWidth()
+                        .padding(12.dp)
                 ) {
-                    IconToggleButton(
-                        modifier = Modifier.align(Alignment.TopEnd),
-                        checked = addInFavChecked.value, onCheckedChange = {
-                            favorite?.invoke(user, it)
-                            addInFavChecked.value = it
-                        }) {
-                        if (addInFavChecked.value) {
-                            Icon(
-                                tint = MaterialTheme.colorScheme.secondary,
-                                painter = rememberVectorPainter(image = Icons.Default.Favorite),
-                                contentDescription = "Remove from Favorite"
-                            )
-                        } else {
-                            Icon(
-                                tint = MaterialTheme.colorScheme.secondary,
-                                painter = rememberVectorPainter(image = Icons.Default.FavoriteBorder),
-                                contentDescription = "Add to Favorite"
-                            )
-                        }
-                    }
-                    CircularProgressIndicator(Modifier.size(98.dp))
-                    Image(
-                        painter = rememberAsyncImagePainter(user.avatarURL),
-                        contentDescription = "Avatar",
+                    Box(
+                        contentAlignment = Alignment.Center,
                         modifier = Modifier
-                            .size(128.dp)
-                            .clip(CircleShape)
-                    )
+                            .align(Alignment.CenterHorizontally)
+                            .fillMaxWidth()
+                    ) {
+                        IconToggleButton(
+                            modifier = Modifier.align(Alignment.TopEnd),
+                            checked = addInFavChecked.value, onCheckedChange = {
+                                favorite?.invoke(user, it)
+                                addInFavChecked.value = it
+                            }) {
+                            if (addInFavChecked.value) {
+                                Icon(
+                                    tint = MaterialTheme.colorScheme.secondary,
+                                    painter = rememberVectorPainter(image = Icons.Default.Favorite),
+                                    contentDescription = "Remove from Favorite"
+                                )
+                            } else {
+                                Icon(
+                                    tint = MaterialTheme.colorScheme.secondary,
+                                    painter = rememberVectorPainter(image = Icons.Default.FavoriteBorder),
+                                    contentDescription = "Add to Favorite"
+                                )
+                            }
+                        }
+                        CircularProgressIndicator(Modifier.size(98.dp))
+                        Image(
+                            painter = rememberAsyncImagePainter(user.avatarURL),
+                            contentDescription = "Avatar",
+                            modifier = Modifier
+                                .size(128.dp)
+                                .clip(CircleShape)
+                        )
+                    }
+
+                    InfoItem(paramName = "Name", paramValue = user.name)
+                    InfoItem(paramName = "Email", paramValue = user.email)
+                    InfoItem(paramName = "Birthday", paramValue = user.birthday)
+                    InfoItem(paramName = "Address", paramValue = user.address)
+                    InfoItem(paramName = "Number", paramValue = user.number)
+                    InfoItem(paramName = "Password", paramValue = user.password)
+
                 }
-
-                InfoItem(paramName = "Name", paramValue = user.name)
-                InfoItem(paramName = "Email", paramValue = user.email)
-                InfoItem(paramName = "Birthday", paramValue = user.birthday)
-                InfoItem(paramName = "Address", paramValue = user.address)
-                InfoItem(paramName = "Number", paramValue = user.number)
-                InfoItem(paramName = "Password", paramValue = user.password)
-
             }
         }
+
     }
+
 }
 
 @Composable
@@ -111,7 +114,7 @@ private fun InfoItem(paramName: String, paramValue: String) {
         Text(
             text = paramValue, modifier = Modifier
                 .clip(MaterialTheme.shapes.small)
-                .clickable{
+                .clickable {
                     clipboardManager.setText(AnnotatedString(paramValue))
                 }
                 .weight(0.7f)

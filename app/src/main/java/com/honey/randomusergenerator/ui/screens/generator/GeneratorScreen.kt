@@ -1,6 +1,7 @@
 package com.honey.randomusergenerator.ui.screens.generator
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import com.honey.randomusergenerator.ui.screens.generator.contract.GeneratorEffect
 import com.honey.randomusergenerator.ui.screens.generator.contract.GeneratorEvent
@@ -59,8 +60,11 @@ fun GeneratorScreen(
         }
     }
 
-    when(val effect = effect.value){
-        is GeneratorEffect.NavBack -> {}
-        null -> {}
+    LaunchedEffect(key1 = effect.value){
+        effect.value?.let {effect ->
+            when(effect){
+                else -> {}
+            }
+        }
     }
 }

@@ -10,6 +10,7 @@ import com.honey.randomusergenerator.ui.base.BaseViewModel
 import com.honey.randomusergenerator.ui.screens.generator.contract.GeneratorEffect
 import com.honey.randomusergenerator.ui.screens.generator.contract.GeneratorEvent
 import com.honey.randomusergenerator.ui.screens.generator.contract.GeneratorState
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class GeneratorViewModel(
@@ -73,10 +74,11 @@ class GeneratorViewModel(
     }
 
     private fun performServerQuery(amount: Int){
+        viewState = GeneratorState.Generating
         viewModelScope.launch {
-            //TODO(more than 1)
             val gotUsers = randomRepository.getUsers(amount)
             if (gotUsers.isNotEmpty()){
+                delay(1000)
                 viewState = GeneratorState.ShowUsers(gotUsers.toAppUsers())
             }
         }

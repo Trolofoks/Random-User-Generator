@@ -1,5 +1,6 @@
 package com.honey.randomusergenerator.ui.screens.generator.view.fullscreen
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -66,12 +67,19 @@ fun GeneratorViewShowUsers(
                     },
                     contentAlignment = Alignment.Center
                 ) {
+                    BackHandler(onBack = {
+                        onHideFullInfo.invoke()
+                    })
                     BigInfoCardView(user = fullUser, favorite = { user, fav ->
                         onFavAdd.invoke(user, fav)
-                    }, modifier = Modifier.fillMaxWidth(0.95f).clickable(enabled = false){})
+                    }, modifier = Modifier
+                        .fillMaxWidth(0.95f)
+                        .clickable(enabled = false) {})
                 }
             }
-            RegenerateRowButton(modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 12.dp),
+            RegenerateRowButton(modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 12.dp),
             onClick = {amount ->
                 regenerate.invoke(amount)
             }
