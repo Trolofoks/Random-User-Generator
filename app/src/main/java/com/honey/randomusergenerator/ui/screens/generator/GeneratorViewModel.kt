@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.honey.data.external.RandomRepository
 import com.honey.data.internal.SavedRepository
 import com.honey.randomusergenerator.data.model.User
+import com.honey.randomusergenerator.extensions.removeFromRepo
+import com.honey.randomusergenerator.extensions.saveToRepo
 import com.honey.randomusergenerator.extensions.toAppUsers
 import com.honey.randomusergenerator.extensions.toDataUser
 import com.honey.randomusergenerator.ui.base.BaseViewModel
@@ -67,10 +69,10 @@ class GeneratorViewModel(
     private fun performFavoriteClick(user: User, add: Boolean){
         viewModelScope.launch {
             if (add){
-                val saved = saveToRepo(user)
+                val saved = user.saveToRepo(savedRepository)
                 Log.d("MyLog", "perform saving, result: $saved")
             } else {
-                val removed = removeFromRepo(user)
+                val removed = user.removeFromRepo(savedRepository)
                 Log.d("MyLog", "perform removing, result: $removed")
             }
         }
@@ -98,11 +100,5 @@ class GeneratorViewModel(
                 viewState = GeneratorState.ShowUsers(gotUsers.toAppUsers())
             }
         }
-    }
-    private suspend fun saveToRepo(user:User): Boolean{
-        return savedRepository.saveUser(user.toDataUser())
-    }
-    private suspend fun removeFromRepo(user: User): Boolean{
-        return savedRepository.deleteUser(user.toDataUser())
     }
 }

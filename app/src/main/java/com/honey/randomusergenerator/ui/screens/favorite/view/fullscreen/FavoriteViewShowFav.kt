@@ -6,12 +6,14 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.unit.dp
 import com.honey.randomusergenerator.R
 import com.honey.randomusergenerator.data.model.User
 import com.honey.randomusergenerator.ui.screens.favorite.contract.FavoriteState
@@ -26,9 +28,9 @@ fun FavoriteViewShowFav(
     onHideFullInfo: (() -> Unit)? = null,
     onFavAdd : ((user: User, add: Boolean) -> Unit)? = null
 ) {
-    Surface {
-        Box(modifier = Modifier.fillMaxSize(0.95f), contentAlignment = Alignment.TopCenter){
-            LazyColumn(){
+    Surface() {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter){
+            LazyColumn(modifier = Modifier.fillMaxSize(0.95f).padding(top = 8.dp)){
                 for (user in state.users) {
                     item { SmallUserCardView(user = user, onCardClick = {
                         fullInfoClick?.invoke(it)
