@@ -6,6 +6,7 @@ import com.honey.data.external.RandomRepository
 import com.honey.data.internal.SavedRepository
 import com.honey.randomusergenerator.data.model.User
 import com.honey.randomusergenerator.extensions.toAppUsers
+import com.honey.randomusergenerator.extensions.toDataUser
 import com.honey.randomusergenerator.ui.base.BaseViewModel
 import com.honey.randomusergenerator.ui.screens.generator.contract.GeneratorEffect
 import com.honey.randomusergenerator.ui.screens.generator.contract.GeneratorEvent
@@ -32,7 +33,9 @@ class GeneratorViewModel(
     }
     private fun reduce(event: GeneratorEvent, currentState: GeneratorState.ShowUsers){
         when(event){
-            is GeneratorEvent.Favorite -> {}
+            is GeneratorEvent.Favorite -> {
+                performFavoriteClick(event.user, event.add)
+            }
             is GeneratorEvent.FullInfoClick -> {
                 performFullInfoClick(event.user, currentState)
             }
@@ -61,6 +64,19 @@ class GeneratorViewModel(
         }
     }
 
+    private fun performFavoriteClick(user: User, add: Boolean){
+        viewModelScope.launch {
+            if (add){
+                val saved = saveToRepo(user)
+                Log.d("MyLog", "perform saving, result: $saved")
+            } else {
+                val removed = removeFromRepo(user)
+                Log.d("MyLog", "perform removing, result: $removed")
+            }
+        }
+
+    }
+
     private fun performFullInfoClick(user: User, currentState: GeneratorState.ShowUsers){
         currentState.let {
             viewState = GeneratorState.ShowUsers(users = it.users, selectedUser = user)
@@ -82,5 +98,11 @@ class GeneratorViewModel(
                 viewState = GeneratorState.ShowUsers(gotUsers.toAppUsers())
             }
         }
+    }
+    private suspend fun saveToRepo(user:User): Boolean{
+        return savedRepository.saveUser(user.toDataUser())
+    }
+    private suspend fun removeFromRepo(user: User): Boolean{
+        return savedRepository.deleteUser(user.toDataUser())
     }
 }

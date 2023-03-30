@@ -26,11 +26,11 @@ import com.honey.randomusergenerator.data.model.User
 fun BigInfoCardView(
     user: User,
     favorite: ((user: User, add: Boolean) -> Unit?)? = null,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    inFavChecked: Boolean = false
 ) {
 
-
-    val addInFavChecked = remember { mutableStateOf(false) }
+    val addInFavChecked = remember { mutableStateOf(inFavChecked) }
 
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
         Box(modifier = modifier, contentAlignment = Alignment.Center) {

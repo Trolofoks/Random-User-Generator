@@ -16,7 +16,8 @@ import com.honey.randomusergenerator.ui.screens.favorite.contract.FavoriteState
 
 @Composable
 fun FavoriteViewEmpty(
-    state: FavoriteState.Empty
+    state: FavoriteState.Empty,
+    retryLoad: (() -> Unit)? = null 
 ) {
     Surface {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){

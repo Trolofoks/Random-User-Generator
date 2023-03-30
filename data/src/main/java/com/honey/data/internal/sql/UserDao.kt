@@ -12,5 +12,5 @@ interface UserDao {
     suspend fun getAllUsers(): List<User>?
 
     @Delete
-    suspend fun deleteUser(user:User)
+    suspend fun deleteUser(user:User) : Int
 }
