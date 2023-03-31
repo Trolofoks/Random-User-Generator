@@ -45,31 +45,7 @@ fun GeneratorViewEmpty(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(text = "Want to Generate Users?")
-                    Row (
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically
-                    ){
-                        IconButton(
-                            onClick = {
-                                if (counter.value > 1){
-                                    counter.value--
-                                }
-                            }) {
-                            Icon(Icons.Default.KeyboardArrowDown, contentDescription = "Minus")
-                        }
-                        Text(
-                            modifier = Modifier.padding(horizontal = 12.dp),
-                            text = "${counter.value}"
-                        )
-                        IconButton(
-                            onClick = {
-                                if (counter.value < 10){
-                                    counter.value++
-                                }
-                            }) {
-                            Icon(Icons.Default.KeyboardArrowUp, contentDescription = "Plus")
-                        }
-                    }
+                    Counter(counter = counter)
                     Button(
                         onClick = { onGenerate.invoke(counter.value) }
                     ) {
