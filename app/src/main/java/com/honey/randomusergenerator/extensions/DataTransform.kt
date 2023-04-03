@@ -11,7 +11,8 @@ fun com.honey.data.model.User.toAppUser(): User {
         birthday = birthday.orEmpty(),
         address = address.orEmpty(),
         number = number.orEmpty(),
-        password = password.orEmpty()
+        password = password.orEmpty(),
+        picture = picture
     )
 }
 
@@ -23,7 +24,8 @@ fun User.toDataUser(): com.honey.data.model.User {
         birthday = birthday.orEmpty(),
         address = address.orEmpty(),
         number = number.orEmpty(),
-        password = password.orEmpty()
+        password = password.orEmpty(),
+        picture = picture
     )
 }
 

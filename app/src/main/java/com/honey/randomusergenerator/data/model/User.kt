@@ -10,4 +10,5 @@ data class User(
     val address: String,
     val number: String,
     val password: String,
+    val picture : ByteArray? = null
 )

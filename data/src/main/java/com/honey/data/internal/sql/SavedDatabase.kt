@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.honey.data.model.Constance
 import com.honey.data.model.User
 
-@Database(entities = [User::class], version =1)
+@Database(entities = [User::class], version = 2)
 abstract class SavedDatabase : RoomDatabase(){
     abstract fun userDao(): UserDao
     //Can implement in DI with replace "companion object" -> "single"

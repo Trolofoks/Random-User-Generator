@@ -4,7 +4,6 @@ import com.honey.randomusergenerator.data.model.User
 import com.honey.randomusergenerator.ui.base.ViewEvent
 
 sealed class EditorEvent: ViewEvent {
-    data class TryToSave(
-        val user: User
-    ): EditorEvent()
+    data class GenerateByKey(val GenerateKey: String): EditorEvent()
+    data class TryToSave(val user: User): EditorEvent()
 }

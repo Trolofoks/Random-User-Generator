@@ -20,6 +20,7 @@ val viewModelModule = module {
     }
     viewModel {
         EditorViewModel(
+            randomRepository = get(),
             savedRepository = get()
         )
     }

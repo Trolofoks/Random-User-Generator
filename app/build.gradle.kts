@@ -2,7 +2,6 @@ plugins {
     id (Dependencies.Plugins.application)
     id (Dependencies.Plugins.kotlinAndroid)
     id (Dependencies.Plugins.kotlinKapt)
-    id (Dependencies.Plugins.relay) version Dependencies.Plugins.relayVersion
 }
 
 android {

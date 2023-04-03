@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ClipboardManager
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.text.AnnotatedString
@@ -70,11 +71,12 @@ fun BigInfoCardView(
                         }
                         CircularProgressIndicator(Modifier.size(98.dp))
                         Image(
-                            painter = rememberAsyncImagePainter(user.avatarURL),
+                            painter = rememberAsyncImagePainter(user.picture ?: user.avatarURL),
                             contentDescription = "Avatar",
                             modifier = Modifier
                                 .size(128.dp)
-                                .clip(CircleShape)
+                                .clip(CircleShape),
+                            contentScale = ContentScale.FillBounds
                         )
                     }
 

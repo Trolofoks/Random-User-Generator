@@ -29,6 +29,6 @@ val dataModule = module {
             androidApplication(),
             SavedDatabase::class.java,
             Constance.DATABASE_NAME
-        ).build()
+        ).fallbackToDestructiveMigration().build()
     }
 }

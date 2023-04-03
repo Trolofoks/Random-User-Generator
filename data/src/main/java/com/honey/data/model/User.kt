@@ -15,5 +15,6 @@ data class User(
     @ColumnInfo val birthday: String,
     @ColumnInfo val address: String,
     @ColumnInfo val number: String,
-    @ColumnInfo val password: String
+    @ColumnInfo val password: String,
+    @ColumnInfo val picture: ByteArray? = null
 )
