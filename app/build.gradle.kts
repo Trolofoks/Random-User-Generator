@@ -79,6 +79,8 @@ dependencies {
 
     implementation(Dependencies.Coil.coilCompose)
 
+    implementation(Dependencies.SysUiController.controller)
+
     implementation(Dependencies.Room.runtime)
     implementation(Dependencies.Room.ktx)
     implementation(Dependencies.Room.compiler)

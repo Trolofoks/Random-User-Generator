@@ -71,6 +71,12 @@ object Dependencies {
         const val coilCompose = "io.coil-kt:coil-compose:$version"
     }
 
+    object SysUiController{
+        const val version = "0.30.0"
+
+        const val controller = "com.google.accompanist:accompanist-systemuicontroller:$version"
+    }
+
     object Room{
         const val version = "2.5.0"
 

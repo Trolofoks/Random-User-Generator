@@ -2,16 +2,26 @@ package com.honey.randomusergenerator.ui.navigation
 
 import android.net.Uri
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.honey.randomusergenerator.R
 import androidx.navigation.compose.rememberNavController
 import com.honey.randomusergenerator.ui.navigation.navscreen.editorScreen
 import com.honey.randomusergenerator.ui.navigation.navscreen.favoriteScreen
@@ -27,11 +37,39 @@ fun AppNavigation() {
     )
     val navController = rememberNavController()
 
+    val expanded = remember { mutableStateOf(false)}
+
     Scaffold(
+
         topBar = {
-//            TopAppBar {
-//
-//            }
+            TopAppBar(
+                title = { Text(text = "Random Users Generator") },
+                actions = {
+                    IconButton(onClick = { /* Handle settings icon click */ }) {
+                        Icon(Icons.Filled.Settings, contentDescription = "Settings")
+                    }
+                    IconButton(onClick = { expanded.value = !expanded.value }) {
+                        Icon(Icons.Filled.MoreVert, contentDescription = "Open Menu")
+                    }
+                    DropdownMenu(
+                        expanded = expanded.value,
+                        onDismissRequest = { expanded.value = false },
+                    ) {
+                        DropdownMenuItem(onClick = {
+                            // Handle "Copy All" menu item click
+                            expanded.value = false
+                        },
+                            text =  {
+                                Text(text = "Copy All")
+                            },
+                            trailingIcon = {
+                                Icon(painter = painterResource(id = R.drawable.ic_copy), contentDescription = "Copy All")
+                            }
+                        )
+                    }
+                },
+
+            )
         },
         contentColor = MaterialTheme.colorScheme.onBackground,
         bottomBar = {
@@ -74,5 +112,6 @@ fun AppNavigation() {
         }
     }
 }
+
 
 
