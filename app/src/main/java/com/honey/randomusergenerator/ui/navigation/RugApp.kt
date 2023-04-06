@@ -1,46 +1,37 @@
 package com.honey.randomusergenerator.ui.navigation
 
-import android.net.Uri
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.currentBackStackEntryAsState
 import com.honey.randomusergenerator.R
 import androidx.navigation.compose.rememberNavController
+import com.honey.data.network.NetworkMonitor
 import com.honey.randomusergenerator.ui.navigation.navscreen.editorScreen
 import com.honey.randomusergenerator.ui.navigation.navscreen.favoriteScreen
 import com.honey.randomusergenerator.ui.navigation.navscreen.generatorScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AppNavigation() {
-    val items = listOf(
-        Screens.Favorite,
-        Screens.Generator,
-        Screens.Editor
-    )
+fun RugApp(
+    networkMonitor: NetworkMonitor,
+    appState: RugAppState = rememberNyaAppState(networkMonitor = networkMonitor)
+) {
     val navController = rememberNavController()
 
     val expanded = remember { mutableStateOf(false)}
 
     Scaffold(
-
         topBar = {
             TopAppBar(
                 title = { Text(text = "Random Users Generator") },
@@ -73,37 +64,17 @@ fun AppNavigation() {
         },
         contentColor = MaterialTheme.colorScheme.onBackground,
         bottomBar = {
-            NavigationBar {
-                val navBackStackEntry by navController.currentBackStackEntryAsState()
-                val currentDestination = navBackStackEntry?.destination
-
-                items.forEach { screen ->
-                    NavigationBarItem(
-                        icon = {
-                            Icon(
-                                painterResource(id = screen.iconId),
-                                contentDescription = "BottomIcon"
-                            )
-                        },
-                        label = { Text(stringResource(id = screen.stringId)) },
-                        selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
-                        onClick = {
-                            navController.navigate(screen.route) {
-                                popUpTo(navController.graph.findStartDestination().id) {
-                                    saveState = true
-                                }
-                                launchSingleTop = true
-                                restoreState = true
-                            }
-                        }
-                    )
-                }
-            }
+            //спиздили
+            RugBottomBar(
+                destinations = appState.topLevelDestinations,
+                onNavigateToDestination = appState::navigateToTopLevelDestination,
+                currentDestination = appState.currentDestination,
+            )
         }
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = Screens.Generator.route,
+            startDestination = TopLevelDestination.Generator.route,
             modifier = Modifier.padding(innerPadding)
         ) {
             editorScreen(onSettingsClick = {})
@@ -112,6 +83,44 @@ fun AppNavigation() {
         }
     }
 }
+
+@Composable
+private fun RugBottomBar(
+    destinations :List<TopLevelDestination>,
+    onNavigateToDestination: (TopLevelDestination) -> Unit,
+    currentDestination: NavDestination?,
+    modifier: Modifier = Modifier
+) {
+    NavigationBar {
+
+        destinations.forEach { destination ->
+            val selected = currentDestination?.hierarchy?.any{it.route?.contains(destination.name,true)?: false} ?: false
+            NavigationBarItem(
+                selected = selected,
+                onClick = {onNavigateToDestination(destination)},
+                icon = {
+                    val icon = if (selected) {
+                        destination.selectedIcon
+                    } else {
+                        destination.unselectedIcon
+                    }
+                    when(icon) {
+                        is Icon.ImageVectorIcon -> Icon(
+                            imageVector = icon.imageVector,
+                            contentDescription = stringResource(id = destination.iconTextId)
+                        )
+                        is Icon.DrawableResourceIcon -> Icon(
+                            painter = painterResource(id = icon.id),
+                            contentDescription = stringResource(id = destination.iconTextId)
+                        )
+                    }
+                },
+                label = { Text(stringResource(id = destination.iconTextId)) },
+            )
+        }
+    }
+}
+
 
 
 

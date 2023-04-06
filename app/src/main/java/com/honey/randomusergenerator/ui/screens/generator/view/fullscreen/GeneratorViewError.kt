@@ -5,12 +5,9 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.honey.randomusergenerator.data.model.Constance
 import com.honey.randomusergenerator.data.model.Errors
-import com.honey.randomusergenerator.ui.navigation.Screens
 import com.honey.randomusergenerator.ui.screens.generator.contract.GeneratorState
 import kotlinx.coroutines.delay
 

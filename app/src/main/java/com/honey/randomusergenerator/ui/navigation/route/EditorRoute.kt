@@ -8,7 +8,7 @@ import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun EditorRoute(
-    onSettingsClick: (String) -> Unit
+    onSettingsClick: (String) -> Unit,
 ){
     val viewModel = getViewModel<EditorViewModel>()
     EditorScreen(
