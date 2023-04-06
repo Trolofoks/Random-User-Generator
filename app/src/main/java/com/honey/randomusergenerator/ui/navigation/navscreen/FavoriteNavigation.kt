@@ -10,11 +10,11 @@ import com.honey.randomusergenerator.ui.navigation.route.FavoriteRoute
 const val favoriteNavigationRoute = "favorite_route"
 
 fun NavController.navigateToFavorite(navOptions: NavOptions? = null){
-    this.navigate(TopLevelDestination.Favorite.route, navOptions)
+    this.navigate(favoriteNavigationRoute, navOptions)
 }
 
 fun NavGraphBuilder.favoriteScreen(onSettingsClick: (String)-> Unit){
-    composable(route = TopLevelDestination.Favorite.route){
+    composable(route = favoriteNavigationRoute){
         FavoriteRoute(onSettingsClick = onSettingsClick)
     }
 }

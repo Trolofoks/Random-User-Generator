@@ -10,11 +10,11 @@ import com.honey.randomusergenerator.ui.navigation.route.EditorRoute
 const val editorNavigationRoute = "editor_route"
 
 fun NavController.navigateToEditor(navOptions: NavOptions? = null){
-    this.navigate(TopLevelDestination.Editor.route, navOptions)
+    this.navigate(editorNavigationRoute, navOptions)
 }
 
 fun NavGraphBuilder.editorScreen(onSettingsClick: (String) -> Unit) {
-    composable(route = TopLevelDestination.Editor.route){
+    composable(route = editorNavigationRoute){
         EditorRoute(onSettingsClick = onSettingsClick)
     }
 }

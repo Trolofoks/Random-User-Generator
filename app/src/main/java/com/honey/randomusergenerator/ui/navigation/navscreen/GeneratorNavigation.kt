@@ -10,11 +10,11 @@ import com.honey.randomusergenerator.ui.navigation.route.GeneratorRoute
 const val generatorNavigationRoute = "generator_route"
 
 fun NavController.navigateToGenerator(navOptions: NavOptions? = null){
-    this.navigate(TopLevelDestination.Generator.route,navOptions)
+    this.navigate(generatorNavigationRoute,navOptions)
 }
 
 fun NavGraphBuilder.generatorScreen(onSettingsClick: (String)-> Unit){
-    composable(route = TopLevelDestination.Generator.route){
+    composable(route = generatorNavigationRoute){
         GeneratorRoute(onSettingsClick = onSettingsClick)
     }
 }

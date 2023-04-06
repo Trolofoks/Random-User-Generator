@@ -8,6 +8,7 @@ import com.honey.data.internal.SavedRepositoryImpl
 import com.honey.data.internal.sql.SavedDatabase
 import com.honey.data.model.Constance
 import com.honey.data.network.ConnectivityManagerNetworkMonitor
+import com.honey.data.network.NetworkMonitor
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 
@@ -32,7 +33,10 @@ val dataModule = module {
             Constance.DATABASE_NAME
         ).fallbackToDestructiveMigration().build()
     }
-    single {
-        ConnectivityManagerNetworkMonitor(context = get())
+
+    single<NetworkMonitor> {
+        ConnectivityManagerNetworkMonitor(
+            context = get()
+        )
     }
 }

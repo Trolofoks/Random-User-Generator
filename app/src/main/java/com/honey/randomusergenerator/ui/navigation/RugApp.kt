@@ -64,7 +64,6 @@ fun RugApp(
         },
         contentColor = MaterialTheme.colorScheme.onBackground,
         bottomBar = {
-            //спиздили
             RugBottomBar(
                 destinations = appState.topLevelDestinations,
                 onNavigateToDestination = appState::navigateToTopLevelDestination,
@@ -72,15 +71,10 @@ fun RugApp(
             )
         }
     ) { innerPadding ->
-        NavHost(
-            navController = navController,
-            startDestination = TopLevelDestination.Generator.route,
+        RugNavHost(
+            navController = appState.navController,
             modifier = Modifier.padding(innerPadding)
-        ) {
-            editorScreen(onSettingsClick = {})
-            generatorScreen(onSettingsClick = {})
-            favoriteScreen(onSettingsClick = {})
-        }
+        )
     }
 }
 
