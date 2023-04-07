@@ -51,7 +51,7 @@ fun RugApp(
                             expanded.value = false
                         },
                             text =  {
-                                Text(text = "Copy All")
+                                Text(text = "Copy all")
                             },
                             trailingIcon = {
                                 Icon(painter = painterResource(id = R.drawable.ic_copy), contentDescription = "Copy All")
@@ -85,8 +85,8 @@ private fun RugBottomBar(
     currentDestination: NavDestination?,
     modifier: Modifier = Modifier
 ) {
-    NavigationBar {
-
+    NavigationBar(
+        ) {
         destinations.forEach { destination ->
             val selected = currentDestination?.hierarchy?.any{it.route?.contains(destination.name,true)?: false} ?: false
             NavigationBarItem(

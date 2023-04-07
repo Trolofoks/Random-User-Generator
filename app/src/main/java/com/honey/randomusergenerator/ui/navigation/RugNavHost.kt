@@ -20,7 +20,7 @@ fun RugNavHost(
     NavHost(
         navController = navController,
         startDestination = startDestination,
-        modifier = Modifier,
+        modifier = modifier,
     ){
         //TODO(add onBackClick)
         favoriteScreen(onSettingsClick = {})

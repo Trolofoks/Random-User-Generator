@@ -3,4 +3,5 @@
     <string name="editor">Editor</string>
     <string name="generator">Generator</string>
     <string name="favorite">Favorite</string>
+    <string name="settings_title">Settings</string>
 </resources>
