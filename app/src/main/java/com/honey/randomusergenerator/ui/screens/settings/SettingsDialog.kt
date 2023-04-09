@@ -4,28 +4,17 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import com.honey.randomusergenerator.R
 import com.honey.randomusergenerator.ui.screens.settings.contracts.SettingsEvent
 import com.honey.randomusergenerator.ui.screens.settings.contracts.SettingsState
-import org.koin.androidx.compose.getViewModel
-
-
-@Composable
-fun SettingsScreenShow(
-    onDismiss: () -> Unit,
-) {
-    val viewModel = getViewModel<SettingsViewModel>()
-    SettingsDialog(
-        onDismiss = onDismiss,
-        state = viewModel.getViewState().collectAsState(),
-        onEventSend = {event -> viewModel.obtainEvent(event)}
-    )
-}
 
 @Composable
 fun SettingsDialog(
@@ -35,7 +24,6 @@ fun SettingsDialog(
 ){
     AlertDialog(
         onDismissRequest = { onDismiss() },
-        modifier = Modifier.fillMaxSize(0.7f),
         title = {
             Text(
                 text = stringResource(id = R.string.settings_title),
@@ -49,39 +37,68 @@ fun SettingsDialog(
                         modifier = Modifier.fillMaxSize(0.95f)
                     ) {
                         ItemWithCheckbox(
-                            text = "Developer mode",
+                            text = stringResource(id = R.string.developer_mode),
                             defValue = state.developerMode,
                             onValueChanged = {newValue -> onEventSend.invoke(SettingsEvent.DeveloperMode(newValue))}
                         )
                         if (state.developerMode){
                             val expanded = remember{ mutableStateOf(false)}
 
-                            Card(modifier = Modifier.fillMaxWidth().clickable { expanded.value = !expanded.value }) {
+                            Card(modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable { expanded.value = !expanded.value }
+                            ) {
                                 Row(horizontalArrangement = Arrangement.SpaceBetween) {
                                     Box {
                                         Text(text = "Selected: ")
                                         Text(text = "Kotlin")
                                     }
-                                    Icon(
-                                        painter = rememberVectorPainter(Icons.Default.KeyboardArrowDown),
-                                        contentDescription = "Down Arrow"
-                                    )
+                                    if (expanded.value){
+                                        Icon(
+                                            painter = rememberVectorPainter(Icons.Default.KeyboardArrowDown),
+                                            contentDescription = "Down Arrow"
+                                        )
+                                    } else{
+                                        Icon(
+                                            painter = rememberVectorPainter(Icons.Default.KeyboardArrowLeft),
+                                            contentDescription = "Left Arrow"
+                                        )
+                                    }
                                 }
                             }
 
-                            DropdownMenu(expanded = expanded.value, onDismissRequest = { /*TODO*/ }) {
+                            DropdownMenu(
+                                modifier = Modifier.align(Alignment.End),
+                                expanded = expanded.value,
+                                onDismissRequest = { expanded.value = false }
+                            ) {
                                 DropdownMenuItem(text = { /*TODO*/ }, onClick = { /*TODO*/ })
                             }
                         }
                     }
                 }
                 is SettingsState.Loading -> {
-                    CircularProgressIndicator(modifier = Modifier.fillMaxWidth())
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        CircularProgressIndicator()
+                    }
                 }
                 else -> {}
             }
+        },
+        confirmButton = {
+            Text(
+                text = stringResource(id = R.string.ok),
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier
+                    .padding(horizontal = 8.dp)
+                    .clickable { onDismiss() }
+            )
         }
-    ) 
+    )
 }
 
 @Composable

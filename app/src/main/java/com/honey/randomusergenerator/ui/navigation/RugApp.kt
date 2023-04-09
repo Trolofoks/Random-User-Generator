@@ -13,30 +13,33 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
-import androidx.navigation.compose.NavHost
 import com.honey.randomusergenerator.R
 import androidx.navigation.compose.rememberNavController
 import com.honey.data.network.NetworkMonitor
-import com.honey.randomusergenerator.ui.navigation.navscreen.editorScreen
-import com.honey.randomusergenerator.ui.navigation.navscreen.favoriteScreen
-import com.honey.randomusergenerator.ui.navigation.navscreen.generatorScreen
+import com.honey.randomusergenerator.ui.navigation.route.SettingsDialogRoute
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RugApp(
     networkMonitor: NetworkMonitor,
-    appState: RugAppState = rememberNyaAppState(networkMonitor = networkMonitor)
+    appState: RugAppState = rememberRugAppState(networkMonitor = networkMonitor)
 ) {
     val navController = rememberNavController()
 
     val expanded = remember { mutableStateOf(false)}
+
+    if (appState.shouldShowSettingsDialog){
+        SettingsDialogRoute {
+            appState.setShowSettingsDialog(false)
+        }
+    }
 
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text(text = "Random Users Generator") },
                 actions = {
-                    IconButton(onClick = { /* Handle settings icon click */ }) {
+                    IconButton(onClick = { appState.setShowSettingsDialog(true) }) {
                         Icon(Icons.Filled.Settings, contentDescription = "Settings")
                     }
                     IconButton(onClick = { expanded.value = !expanded.value }) {

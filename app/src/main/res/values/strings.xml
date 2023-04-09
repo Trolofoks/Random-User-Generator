@@ -4,4 +4,6 @@
     <string name="generator">Generator</string>
     <string name="favorite">Favorite</string>
     <string name="settings_title">Settings</string>
+    <string name="ok">OK</string>
+    <string name="developer_mode">Developer mode</string>
 </resources>
