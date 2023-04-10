@@ -1,8 +1,8 @@
 package com.honey.randomusergenerator.ui.screens.favorite
 
 import androidx.lifecycle.viewModelScope
-import com.honey.data.internal.savedusers.SavedRepository
-import com.honey.data.internal.settings.SettingsRepository
+import com.honey.data.saved.SavedRepository
+import com.honey.data.settings.SettingsRepository
 import com.honey.randomusergenerator.data.model.User
 import com.honey.randomusergenerator.extensions.removeFromRepo
 import com.honey.randomusergenerator.extensions.saveToRepo

@@ -1,4 +1,4 @@
-package com.honey.data.model
+package com.honey.data.random.model
 
 object GenerateKeys {
     const val AVATAR = "Avatar"

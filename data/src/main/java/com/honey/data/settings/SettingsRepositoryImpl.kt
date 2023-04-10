@@ -1,9 +1,9 @@
-package com.honey.data.internal.settings
+package com.honey.data.settings
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.honey.data.model.Language
-import com.honey.data.model.SettingsKeys
+import com.honey.data.settings.model.Language
+import com.honey.data.settings.model.SettingsKeys
 
 class SettingsRepositoryImpl(context: Context): SettingsRepository {
     private val sharedPreferences : SharedPreferences by lazy { context.getSharedPreferences("default", Context.MODE_PRIVATE)}

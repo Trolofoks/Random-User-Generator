@@ -1,8 +1,7 @@
-package com.honey.data.external
+package com.honey.data.random.source.api
 
-import com.honey.data.model.User
+import com.honey.data.external.ApiResponse
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface RandomUserApi {

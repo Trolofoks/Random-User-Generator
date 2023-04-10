@@ -1,9 +1,10 @@
-package com.honey.data.external
+package com.honey.data.random
 
 import android.util.Log
-import com.honey.data.model.GenerateKeys
+import com.honey.data.random.source.api.RandomUserApi
+import com.honey.data.external.mapToUserModel
+import com.honey.data.random.model.GenerateKeys
 import com.honey.data.model.User
-import java.io.IOException
 
 
 class RandomRepositoryImpl(

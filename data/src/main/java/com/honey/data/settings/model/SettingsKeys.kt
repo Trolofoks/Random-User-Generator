@@ -1,4 +1,4 @@
-package com.honey.data.model
+package com.honey.data.settings.model
 
 object SettingsKeys {
     const val DEV_MODE = "developer"

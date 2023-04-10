@@ -1,7 +1,6 @@
 package com.honey.randomusergenerator.ui.screens.generator.contract
 
-import com.honey.data.model.Language
-import com.honey.randomusergenerator.data.model.Errors
+import com.honey.data.settings.model.Language
 import com.honey.randomusergenerator.data.model.User
 import com.honey.randomusergenerator.ui.base.ViewState
 

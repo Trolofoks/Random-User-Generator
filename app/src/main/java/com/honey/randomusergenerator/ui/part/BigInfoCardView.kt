@@ -22,7 +22,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
-import com.honey.data.model.Language
+import com.honey.data.settings.model.Language
 import com.honey.randomusergenerator.R
 import com.honey.randomusergenerator.data.model.User
 import com.honey.randomusergenerator.data.model.Holder

@@ -3,7 +3,7 @@ package com.honey.data.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.gson.annotations.SerializedName
+import com.honey.data.saved.storage.sql.Constance
 
 
 @Entity(tableName = Constance.TABLE_NAME)

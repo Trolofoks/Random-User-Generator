@@ -1,10 +1,9 @@
-package com.honey.data.internal.savedusers.sql
+package com.honey.data.saved.storage.sql
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.honey.data.model.Constance
 import com.honey.data.model.User
 
 @Database(entities = [User::class], version = 2)

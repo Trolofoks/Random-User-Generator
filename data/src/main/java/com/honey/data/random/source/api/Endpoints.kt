@@ -1,4 +1,4 @@
-package com.honey.data.external
+package com.honey.data.random.source.api
 
 object Endpoints {
     const val BASE_URL = "https://randomuser.me/api/"

@@ -1,4 +1,4 @@
-package com.honey.data.external
+package com.honey.data.random
 
 import com.honey.data.model.User
 

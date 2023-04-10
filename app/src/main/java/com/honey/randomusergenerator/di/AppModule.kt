@@ -1,8 +1,7 @@
 package com.honey.randomusergenerator.di
 
-import com.honey.data.external.Endpoints
-import com.honey.data.external.RandomUserApi
-import com.honey.data.model.Constance
+import com.honey.data.random.source.api.Endpoints
+import com.honey.data.random.source.api.RandomUserApi
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient

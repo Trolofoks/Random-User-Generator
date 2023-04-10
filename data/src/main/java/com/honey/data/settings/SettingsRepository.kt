@@ -1,4 +1,4 @@
-package com.honey.data.internal.settings
+package com.honey.data.settings
 
 interface SettingsRepository {
     fun exportLanguage(language: String? = null) : String

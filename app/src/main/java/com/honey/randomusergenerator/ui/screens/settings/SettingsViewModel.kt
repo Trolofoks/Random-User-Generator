@@ -2,7 +2,7 @@ package com.honey.randomusergenerator.ui.screens.settings
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
-import com.honey.data.internal.settings.SettingsRepository
+import com.honey.data.settings.SettingsRepository
 import com.honey.randomusergenerator.ui.base.BaseViewModel
 import com.honey.randomusergenerator.ui.screens.settings.contracts.SettingsEffect
 import com.honey.randomusergenerator.ui.screens.settings.contracts.SettingsEvent

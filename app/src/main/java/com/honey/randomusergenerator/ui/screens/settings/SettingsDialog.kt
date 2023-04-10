@@ -1,6 +1,5 @@
 package com.honey.randomusergenerator.ui.screens.settings
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
@@ -12,10 +11,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
-import com.honey.data.model.Language
+import com.honey.data.settings.model.Language
 import com.honey.randomusergenerator.R
 import com.honey.randomusergenerator.ui.screens.settings.contracts.SettingsEvent
 import com.honey.randomusergenerator.ui.screens.settings.contracts.SettingsState

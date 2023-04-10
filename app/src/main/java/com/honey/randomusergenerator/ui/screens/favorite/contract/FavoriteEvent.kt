@@ -1,6 +1,5 @@
 package com.honey.randomusergenerator.ui.screens.favorite.contract
 
-import com.honey.data.model.Language
 import com.honey.randomusergenerator.data.model.User
 import com.honey.randomusergenerator.ui.base.ViewEvent
 

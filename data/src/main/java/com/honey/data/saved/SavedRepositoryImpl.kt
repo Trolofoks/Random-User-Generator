@@ -1,8 +1,8 @@
-package com.honey.data.internal.savedusers
+package com.honey.data.saved
 
 import android.util.Log
-import com.honey.data.internal.savedusers.sql.SavedDatabase
-import com.honey.data.internal.savedusers.sql.UserDao
+import com.honey.data.saved.storage.sql.SavedDatabase
+import com.honey.data.saved.storage.sql.UserDao
 import com.honey.data.model.User
 
 class SavedRepositoryImpl(private val savedDatabase: SavedDatabase): SavedRepository {

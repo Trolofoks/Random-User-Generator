@@ -1,6 +1,5 @@
 package com.honey.randomusergenerator.ui.screens.editor.view.fullscreen
 
-import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -19,17 +18,14 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
-import com.honey.data.model.GenerateKeys
+import com.honey.data.random.model.GenerateKeys
 import com.honey.randomusergenerator.data.model.User
-import com.honey.randomusergenerator.ui.screens.editor.contract.EditorEvent
 import com.honey.randomusergenerator.ui.screens.editor.contract.EditorState
-import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.io.InputStream

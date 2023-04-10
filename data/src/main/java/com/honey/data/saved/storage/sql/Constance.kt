@@ -1,4 +1,4 @@
-package com.honey.data.model
+package com.honey.data.saved.storage.sql
 
 object Constance {
     const val DATABASE_NAME = "database"
