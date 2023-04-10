@@ -1,4 +1,4 @@
-package com.honey.data.internal.sql
+package com.honey.data.internal.savedusers.sql
 
 import android.content.Context
 import androidx.room.Database
@@ -12,7 +12,7 @@ abstract class SavedDatabase : RoomDatabase(){
     abstract fun userDao(): UserDao
     //Can implement in DI with replace "companion object" -> "single"
     companion object {
-        fun getDatabase(context: Context): SavedDatabase{
+        fun getDatabase(context: Context): SavedDatabase {
             return Room.databaseBuilder(
                 context.applicationContext,
                 SavedDatabase::class.java,

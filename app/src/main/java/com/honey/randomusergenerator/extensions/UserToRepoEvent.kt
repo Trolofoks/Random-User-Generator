@@ -1,6 +1,6 @@
 package com.honey.randomusergenerator.extensions
 
-import com.honey.data.internal.SavedRepository
+import com.honey.data.internal.savedusers.SavedRepository
 import com.honey.randomusergenerator.data.model.User
 
 suspend fun User.saveToRepo(savRepo: SavedRepository): Boolean{

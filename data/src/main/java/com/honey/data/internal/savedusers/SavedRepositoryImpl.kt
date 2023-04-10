@@ -1,10 +1,9 @@
-package com.honey.data.internal
+package com.honey.data.internal.savedusers
 
 import android.util.Log
-import com.honey.data.internal.sql.SavedDatabase
-import com.honey.data.internal.sql.UserDao
+import com.honey.data.internal.savedusers.sql.SavedDatabase
+import com.honey.data.internal.savedusers.sql.UserDao
 import com.honey.data.model.User
-import java.io.IOException
 
 class SavedRepositoryImpl(private val savedDatabase: SavedDatabase): SavedRepository {
     private val dao: UserDao by lazy { savedDatabase.userDao() }

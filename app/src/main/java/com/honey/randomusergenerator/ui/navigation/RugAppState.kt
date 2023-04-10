@@ -1,25 +1,30 @@
 package com.honey.randomusergenerator.ui.navigation
 
+import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.*
 import androidx.navigation.*
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.honey.data.network.NetworkMonitor
 import com.honey.randomusergenerator.ui.navigation.navscreen.*
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.job
+import kotlinx.coroutines.launch
 
 @Composable
 fun rememberRugAppState(
-    networkMonitor: NetworkMonitor,
+    connectionManager: ConnectivityManager,
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
     navController: NavHostController = rememberNavController(),
 ): RugAppState{
-    return remember(navController,coroutineScope,networkMonitor){
-        RugAppState(navController, coroutineScope, networkMonitor)
+    return remember(navController,coroutineScope,connectionManager){
+        RugAppState(navController, coroutineScope, connectionManager)
     }
 }
 
@@ -27,7 +32,7 @@ fun rememberRugAppState(
 class RugAppState(
     val navController: NavHostController,
     val coroutineScope: CoroutineScope,
-    networkMonitor: NetworkMonitor
+    connectivityManager: ConnectivityManager
 ) {
 
     val currentDestination: NavDestination?
@@ -44,14 +49,36 @@ class RugAppState(
     var shouldShowSettingsDialog by mutableStateOf(false)
         private set
 
-    val isOffline = networkMonitor.isOnline
-            //TODO(эта чо)
-        .map(Boolean::not)
-        .stateIn(
-            scope = coroutineScope,
-            started = SharingStarted.WhileSubscribed(50000),
-            initialValue = false
-        )
+    init {
+        coroutineScope.launch {
+            observeNetworkConnectivity(connectivityManager)
+        }
+    }
+
+    private val _isOffline = MutableStateFlow(!isConnected(connectivityManager))
+    val isOffline: StateFlow<Boolean> = _isOffline
+
+    private fun observeNetworkConnectivity(connectivityManager: ConnectivityManager) {
+        val networkCallback = object : ConnectivityManager.NetworkCallback() {
+            override fun onAvailable(network: Network) {
+                _isOffline.value = false
+            }
+
+            override fun onLost(network: Network) {
+                _isOffline.value = true
+            }
+        }
+        //??
+        val networkRequest = NetworkRequest.Builder()
+            .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+            .build()
+
+        connectivityManager.registerNetworkCallback(networkRequest, networkCallback)
+
+        coroutineScope.coroutineContext.job.invokeOnCompletion {
+            connectivityManager.unregisterNetworkCallback(networkCallback)
+        }
+    }
 
     val topLevelDestinations: List<TopLevelDestination> = TopLevelDestination.values().asList()
 
@@ -72,5 +99,11 @@ class RugAppState(
     }
     fun setShowSettingsDialog(shouldShow: Boolean){
         shouldShowSettingsDialog = shouldShow
+    }
+
+    private fun isConnected(connectivityManager: ConnectivityManager): Boolean {
+        val network = connectivityManager.activeNetwork ?: return false
+        val capabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
+        return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
     }
 }

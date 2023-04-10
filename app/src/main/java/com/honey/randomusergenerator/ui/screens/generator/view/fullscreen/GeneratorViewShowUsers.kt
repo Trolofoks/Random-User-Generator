@@ -29,9 +29,9 @@ import androidx.compose.ui.unit.dp
 import com.honey.randomusergenerator.R
 import com.honey.randomusergenerator.data.model.User
 import com.honey.randomusergenerator.ui.screens.generator.contract.GeneratorState
-import com.honey.randomusergenerator.ui.screens.generator.view.part.BigInfoCardView
-import com.honey.randomusergenerator.ui.screens.generator.view.part.MicroUserCardView
-import com.honey.randomusergenerator.ui.screens.generator.view.part.SmallUserCardView
+import com.honey.randomusergenerator.ui.part.BigInfoCardView
+import com.honey.randomusergenerator.ui.part.MicroUserCardView
+import com.honey.randomusergenerator.ui.part.SmallUserCardView
 import drawVerticalScrollbar
 
 @Composable
@@ -50,8 +50,7 @@ fun GeneratorViewShowUsers(
                 in 2..40 -> {
                     LazyColumn(
                         modifier = Modifier
-                            .fillMaxWidth(0.95f)
-                            .padding(top = 4.dp),
+                            .fillMaxWidth(0.95f),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         userList.forEach() { user ->
@@ -70,7 +69,7 @@ fun GeneratorViewShowUsers(
                         columns = GridCells.Fixed(5),
                         state = lazyState,
                         modifier = Modifier
-                            .padding(4.dp)
+                            .padding(horizontal = 4.dp)
                             .drawVerticalScrollbar(lazyState, 5, false)
                     ) {
                         userList.forEach { user ->
@@ -88,7 +87,8 @@ fun GeneratorViewShowUsers(
                             onFavAdd(user, fav)
                         }, modifier = Modifier
                             .fillMaxWidth(0.98f)
-                            .align(Alignment.Center)
+                            .align(Alignment.Center),
+                        exportLanguageFormat = state.exportLanguage
                     )
                 }
             }
@@ -109,7 +109,9 @@ fun GeneratorViewShowUsers(
                         onFavAdd.invoke(user, fav)
                     }, modifier = Modifier
                         .fillMaxWidth(0.95f)
-                        .clickable(enabled = false) {})
+                        .clickable(enabled = false) {},
+                        exportLanguageFormat = state.exportLanguage
+                    )
                 }
             }
             RegenerateRowButton(modifier = Modifier
@@ -152,7 +154,8 @@ fun RegenerateRowButton(
 fun Counter(counter: MutableState<Int>, modifier: Modifier = Modifier) {
     Card(
         modifier = modifier
-            .height(48.dp), shape = MaterialTheme.shapes.large
+            .height(48.dp), shape = MaterialTheme.shapes.large,
+        elevation = CardDefaults.cardElevation(2.dp)
     ) {
         Row(
             modifier = Modifier.align(Alignment.CenterHorizontally),

@@ -31,32 +31,7 @@ fun GeneratorViewGenerating(
                 Text(text = "Do NOT close the application", style = MaterialTheme.typography.headlineMedium, modifier = Modifier.padding(bottom = 32.dp))
                 Text(text = "Interesting Facts:", style = MaterialTheme.typography.bodySmall)
                 Text(text = facts.value, textAlign = TextAlign.Center, modifier = Modifier.padding(bottom = 32.dp))
-//                CircularProgressIndicator(modifier = Modifier.fillMaxWidth(0.5f))
-                //TODO(WHAT A SHIT)
-                Box(){
-                    Box(contentAlignment = Alignment.BottomEnd){
-                        CircularProgressIndicator(modifier = Modifier.fillMaxWidth(0.5f))
-                        CircularProgressIndicator(modifier = Modifier.fillMaxWidth(0.45f))
-                        CircularProgressIndicator(modifier = Modifier.fillMaxWidth(0.4f))
-                        CircularProgressIndicator(modifier = Modifier.fillMaxWidth(0.35f))
-                        CircularProgressIndicator(modifier = Modifier.fillMaxWidth(0.3f))
-                        CircularProgressIndicator(modifier = Modifier.fillMaxWidth(0.25f))
-                        CircularProgressIndicator(modifier = Modifier.fillMaxWidth(0.2f))
-                        CircularProgressIndicator(modifier = Modifier.fillMaxWidth(0.15f))
-                        CircularProgressIndicator(modifier = Modifier.fillMaxWidth(0.1f))
-                    }
-                    Box(){
-                        CircularProgressIndicator(modifier = Modifier.fillMaxWidth(0.5f))
-                        CircularProgressIndicator(modifier = Modifier.fillMaxWidth(0.45f))
-                        CircularProgressIndicator(modifier = Modifier.fillMaxWidth(0.4f))
-                        CircularProgressIndicator(modifier = Modifier.fillMaxWidth(0.35f))
-                        CircularProgressIndicator(modifier = Modifier.fillMaxWidth(0.3f))
-                        CircularProgressIndicator(modifier = Modifier.fillMaxWidth(0.25f))
-                        CircularProgressIndicator(modifier = Modifier.fillMaxWidth(0.2f))
-                        CircularProgressIndicator(modifier = Modifier.fillMaxWidth(0.15f))
-                        CircularProgressIndicator(modifier = Modifier.fillMaxWidth(0.1f))
-                    }
-                }
+                CircularProgressIndicator(modifier = Modifier.fillMaxWidth(0.5f))
 
             }
         }

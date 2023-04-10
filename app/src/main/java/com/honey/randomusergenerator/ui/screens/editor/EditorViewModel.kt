@@ -2,7 +2,7 @@ package com.honey.randomusergenerator.ui.screens.editor
 
 import androidx.lifecycle.viewModelScope
 import com.honey.data.external.RandomRepository
-import com.honey.data.internal.SavedRepository
+import com.honey.data.internal.savedusers.SavedRepository
 import com.honey.data.model.GenerateKeys
 import com.honey.randomusergenerator.extensions.saveToRepo
 import com.honey.randomusergenerator.ui.base.BaseViewModel

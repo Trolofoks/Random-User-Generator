@@ -34,18 +34,4 @@ abstract class BaseViewModel<Event: ViewEvent, UiState: ViewState, Effect:ViewEf
 
     fun getEffect(): SharedFlow<Effect?> = _effect.asSharedFlow()
     fun getViewState(): StateFlow<UiState> = _viewState.asStateFlow()
-
-
-
-    //TODO(may add return Boolean use .equals)
-//    fun setEffect(effect: Effect){
-//        viewModelScope.launch { _effect.tryEmit(effect) }
-//    }
-
-    //TODO(разберись как это работает, пока что все что я понял, так это так выглядит чтобы не передать state из Editor в Favorite)
-//    protected fun setState(reducer: UiState.()-> UiState){
-//        val newState = viewState.value.reducer()
-//        _viewState.value = newState
-//    }
-
 }

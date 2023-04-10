@@ -1,8 +1,8 @@
 package com.honey.randomusergenerator.ui.screens.favorite
 
 import androidx.lifecycle.viewModelScope
-import androidx.room.util.copy
-import com.honey.data.internal.SavedRepository
+import com.honey.data.internal.savedusers.SavedRepository
+import com.honey.data.internal.settings.SettingsRepository
 import com.honey.randomusergenerator.data.model.User
 import com.honey.randomusergenerator.extensions.removeFromRepo
 import com.honey.randomusergenerator.extensions.saveToRepo
@@ -14,7 +14,8 @@ import com.honey.randomusergenerator.ui.screens.favorite.contract.FavoriteState
 import kotlinx.coroutines.launch
 
 class FavoriteViewModel(
-    private val savedRepository: SavedRepository
+    private val savedRepository: SavedRepository,
+    private val settingsRepository: SettingsRepository
 ): BaseViewModel<FavoriteEvent,FavoriteState,FavoriteEffect>(
     initialState = FavoriteState.Loading
 ){
@@ -44,7 +45,7 @@ class FavoriteViewModel(
                 performLoadUser()
             }
             is FavoriteEvent.FullInfo -> {
-                viewState = currentState.copy(fullInfoUser = event.user)
+                viewState = currentState.copy(fullInfoUser = event.user, exportLanguage = settingsRepository.exportLanguage())
             }
             is FavoriteEvent.HideFullInfo -> {
                 viewState = currentState.copy(fullInfoUser = null)
@@ -80,7 +81,7 @@ class FavoriteViewModel(
             val users = loadUsers()
 
              if (users.isNotEmpty()){
-                viewState = FavoriteState.ShowFav(users, currentFullInfo)
+                viewState = FavoriteState.ShowFav(users, currentFullInfo, settingsRepository.exportLanguage())
             } else {
                 viewState = FavoriteState.Empty
              }

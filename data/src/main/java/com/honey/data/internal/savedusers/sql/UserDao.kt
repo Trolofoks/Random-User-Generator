@@ -1,4 +1,4 @@
-package com.honey.data.internal.sql
+package com.honey.data.internal.savedusers.sql
 
 import androidx.room.*
 import com.honey.data.model.User

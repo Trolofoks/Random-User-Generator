@@ -1,4 +1,4 @@
-package com.honey.data.internal
+package com.honey.data.internal.savedusers
 
 import com.honey.data.model.User
 

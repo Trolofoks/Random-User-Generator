@@ -1,11 +1,12 @@
 package com.honey.randomusergenerator.ui.screens.generator.contract
 
+import com.honey.data.model.Language
 import com.honey.randomusergenerator.data.model.Errors
 import com.honey.randomusergenerator.data.model.User
 import com.honey.randomusergenerator.ui.base.ViewState
 
 sealed class GeneratorState :ViewState{
-    data class ShowUsers(val users: List<User>, val selectedUser: User? = null) : GeneratorState()
+    data class ShowUsers(val users: List<User>, val selectedUser: User? = null, val exportLanguage: String = Language.BASE) : GeneratorState()
     data class Error(val error: String) : GeneratorState()
     object Generating: GeneratorState()
     object Empty: GeneratorState()

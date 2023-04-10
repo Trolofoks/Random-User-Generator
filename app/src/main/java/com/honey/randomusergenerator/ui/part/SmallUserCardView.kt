@@ -1,4 +1,4 @@
-package com.honey.randomusergenerator.ui.screens.generator.view.part
+package com.honey.randomusergenerator.ui.part
 
 import android.net.Uri
 import android.util.Log

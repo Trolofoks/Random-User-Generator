@@ -1,6 +1,5 @@
-package com.honey.randomusergenerator.ui.screens.generator.view.part
+package com.honey.randomusergenerator.ui.part
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -18,21 +17,39 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ClipboardManager
 import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
+import com.honey.data.model.Language
+import com.honey.randomusergenerator.R
 import com.honey.randomusergenerator.data.model.User
+import com.honey.randomusergenerator.data.model.Holder
+import kotlinx.coroutines.launch
 
 @Composable
 fun BigInfoCardView(
     user: User,
     favorite: ((user: User, add: Boolean) -> Unit?)? = null,
     modifier: Modifier = Modifier,
-    inFavChecked: Boolean = false
+    inFavChecked: Boolean = false,
+    exportLanguageFormat: String = Language.BASE
 ) {
+    val clipboardManager: ClipboardManager = LocalClipboardManager.current
 
     val addInFavChecked = remember { mutableStateOf(inFavChecked) }
+
+    val coroutineScope = rememberCoroutineScope()
+
+    fun showSnackbar(text: String){
+        coroutineScope.launch {
+            Holder.snackbarHostState.showSnackbar(
+                message = text,
+                duration = SnackbarDuration.Short
+            )
+        }
+    }
 
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
         Box(modifier = modifier, contentAlignment = Alignment.Center) {
@@ -56,6 +73,7 @@ fun BigInfoCardView(
                                 addInFavChecked.value = it
                             }) {
                             if (addInFavChecked.value) {
+                                showSnackbar("Added to favorite")
                                 Icon(
                                     tint = MaterialTheme.colorScheme.secondary,
                                     painter = rememberVectorPainter(image = Icons.Default.Favorite),
@@ -68,6 +86,34 @@ fun BigInfoCardView(
                                     contentDescription = "Add to Favorite"
                                 )
                             }
+                        }
+                        IconButton(onClick = {
+                            when(exportLanguageFormat){
+                                Language.BASE -> {
+                                    clipboardManager.setText(
+                                        AnnotatedString(buildString {
+                                            append("Name:\n${user.name}\n\n")
+                                            append("Email:\n${user.email}\n\n")
+                                            append("Birthday:\n${user.birthday}\n\n")
+                                            append("Address:\n${user.address}\n\n")
+                                            append("Number:\n${user.number}\n\n")
+                                            append("Password:\n${user.password}\n\n")
+                                            append("Image:\n${user.avatarURL}")
+                                        })
+                                    )
+                                    showSnackbar("Copied to Clipboard")
+                                }
+                                Language.KOTLIN -> {
+                                    clipboardManager.setText(AnnotatedString(user.toString()))
+                                    showSnackbar("Copied to Clipboard as Kotlin")
+                                }
+                            }
+                        }, modifier = Modifier.align(Alignment.TopStart)) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_copy),
+                                contentDescription = "Copy Card",
+                                tint = MaterialTheme.colorScheme.secondary
+                            )
                         }
                         CircularProgressIndicator(Modifier.size(98.dp))
                         Image(
@@ -92,6 +138,7 @@ fun BigInfoCardView(
         }
 
     }
+
 
 }
 

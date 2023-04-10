@@ -3,13 +3,14 @@ package com.honey.randomusergenerator.di
 import androidx.room.Room
 import com.honey.data.external.RandomRepository
 import com.honey.data.external.RandomRepositoryImpl
-import com.honey.data.internal.SavedRepository
-import com.honey.data.internal.SavedRepositoryImpl
-import com.honey.data.internal.sql.SavedDatabase
+import com.honey.data.internal.savedusers.SavedRepository
+import com.honey.data.internal.savedusers.SavedRepositoryImpl
+import com.honey.data.internal.savedusers.sql.SavedDatabase
+import com.honey.data.internal.settings.SettingsRepository
+import com.honey.data.internal.settings.SettingsRepositoryImpl
 import com.honey.data.model.Constance
-import com.honey.data.network.ConnectivityManagerNetworkMonitor
-import com.honey.data.network.NetworkMonitor
 import org.koin.android.ext.koin.androidApplication
+import org.koin.androidx.compose.get
 import org.koin.dsl.module
 
 val dataModule = module {
@@ -34,8 +35,8 @@ val dataModule = module {
         ).fallbackToDestructiveMigration().build()
     }
 
-    single<NetworkMonitor> {
-        ConnectivityManagerNetworkMonitor(
+    single<SettingsRepository>{
+        SettingsRepositoryImpl(
             context = get()
         )
     }

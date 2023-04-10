@@ -15,8 +15,8 @@ import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.honey.randomusergenerator.ui.screens.generator.contract.GeneratorState
-import com.honey.randomusergenerator.ui.screens.generator.view.part.BigInfoCardView
-import com.honey.randomusergenerator.ui.screens.generator.view.part.GICVPreview
+import com.honey.randomusergenerator.ui.part.BigInfoCardView
+import com.honey.randomusergenerator.ui.part.GICVPreview
 
 @Composable
 fun GeneratorViewEmpty(

@@ -4,10 +4,7 @@ import com.honey.randomusergenerator.ui.base.ViewEvent
 
 sealed class SettingsEvent : ViewEvent{
     data class DeveloperMode (val turnOn : Boolean) : SettingsEvent()
-    data class LanguageSelect(val language: Language) : SettingsEvent()
+    data class LanguageSelect(val language: String) : SettingsEvent()
 }
 
-sealed class Language {
-    object Kotlin: Language()
-    object AnotherLanguage: Language()
-}
+

@@ -4,5 +4,5 @@ import com.honey.randomusergenerator.ui.base.ViewState
 
 sealed class SettingsState : ViewState {
     object Loading : SettingsState()
-    data class Show(val developerMode: Boolean) : SettingsState()
+    data class Show(val developerMode: Boolean, val selectedLanguage: String) : SettingsState()
 }

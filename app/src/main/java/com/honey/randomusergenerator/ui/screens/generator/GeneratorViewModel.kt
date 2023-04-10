@@ -3,12 +3,12 @@ package com.honey.randomusergenerator.ui.screens.generator
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.honey.data.external.RandomRepository
-import com.honey.data.internal.SavedRepository
+import com.honey.data.internal.savedusers.SavedRepository
+import com.honey.data.internal.settings.SettingsRepository
 import com.honey.randomusergenerator.data.model.User
 import com.honey.randomusergenerator.extensions.removeFromRepo
 import com.honey.randomusergenerator.extensions.saveToRepo
 import com.honey.randomusergenerator.extensions.toAppUsers
-import com.honey.randomusergenerator.extensions.toDataUser
 import com.honey.randomusergenerator.ui.base.BaseViewModel
 import com.honey.randomusergenerator.ui.screens.generator.contract.GeneratorEffect
 import com.honey.randomusergenerator.ui.screens.generator.contract.GeneratorEvent
@@ -18,7 +18,8 @@ import kotlinx.coroutines.launch
 
 class GeneratorViewModel(
     private val randomRepository: RandomRepository,
-    private val savedRepository: SavedRepository
+    private val savedRepository: SavedRepository,
+    private val settingsRepository: SettingsRepository
 ):BaseViewModel<GeneratorEvent,GeneratorState,GeneratorEffect>(initialState = GeneratorState.Empty) {
 
     override fun obtainEvent(event: GeneratorEvent) {
@@ -80,15 +81,11 @@ class GeneratorViewModel(
     }
 
     private fun performFullInfoClick(user: User, currentState: GeneratorState.ShowUsers){
-        currentState.let {
-            viewState = GeneratorState.ShowUsers(users = it.users, selectedUser = user)
-        }
+        viewState = currentState.copy(selectedUser = user, exportLanguage = settingsRepository.exportLanguage())
     }
 
     private fun performHideFullInfo(currentState: GeneratorState.ShowUsers){
-        currentState.let {
-            viewState = GeneratorState.ShowUsers(users = it.users, selectedUser = null)
-        }
+        viewState = currentState.copy(selectedUser = null)
     }
 
     private fun performServerQuery(amount: Int){
@@ -97,7 +94,7 @@ class GeneratorViewModel(
             val gotUsers = randomRepository.getUsers(amount)
             if (gotUsers.isNotEmpty()){
                 delay(1000)
-                viewState = GeneratorState.ShowUsers(gotUsers.toAppUsers())
+                viewState = GeneratorState.ShowUsers(gotUsers.toAppUsers(), exportLanguage = settingsRepository.exportLanguage())
             }
         }
     }

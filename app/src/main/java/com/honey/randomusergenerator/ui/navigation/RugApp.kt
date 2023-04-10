@@ -1,32 +1,28 @@
 package com.honey.randomusergenerator.ui.navigation
 
+import android.net.ConnectivityManager
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
-import com.honey.randomusergenerator.R
-import androidx.navigation.compose.rememberNavController
-import com.honey.data.network.NetworkMonitor
+import com.honey.randomusergenerator.data.model.Holder
 import com.honey.randomusergenerator.ui.navigation.route.SettingsDialogRoute
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RugApp(
-    networkMonitor: NetworkMonitor,
-    appState: RugAppState = rememberRugAppState(networkMonitor = networkMonitor)
+    connectionManager: ConnectivityManager,
+    appState: RugAppState = rememberRugAppState(connectionManager = connectionManager)
 ) {
-    val navController = rememberNavController()
 
-    val expanded = remember { mutableStateOf(false)}
+    val snackbarHostState = remember { SnackbarHostState() }
+    Holder.snackbarHostState = snackbarHostState
 
     if (appState.shouldShowSettingsDialog){
         SettingsDialogRoute {
@@ -34,36 +30,36 @@ fun RugApp(
         }
     }
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(text = "Random Users Generator") },
-                actions = {
-                    IconButton(onClick = { appState.setShowSettingsDialog(true) }) {
-                        Icon(Icons.Filled.Settings, contentDescription = "Settings")
-                    }
-                    IconButton(onClick = { expanded.value = !expanded.value }) {
-                        Icon(Icons.Filled.MoreVert, contentDescription = "Open Menu")
-                    }
-                    DropdownMenu(
-                        expanded = expanded.value,
-                        onDismissRequest = { expanded.value = false },
-                    ) {
-                        DropdownMenuItem(onClick = {
-                            // Handle "Copy All" menu item click
-                            expanded.value = false
-                        },
-                            text =  {
-                                Text(text = "Copy all")
-                            },
-                            trailingIcon = {
-                                Icon(painter = painterResource(id = R.drawable.ic_copy), contentDescription = "Copy All")
-                            }
-                        )
-                    }
-                },
+    val isOffline = appState.isOffline.collectAsState()
 
+    LaunchedEffect(isOffline.value) {
+        if (isOffline.value) {
+            snackbarHostState.showSnackbar(
+                message = "No Internet",
+                duration = SnackbarDuration.Indefinite
             )
+        }
+    }
+
+    Scaffold(
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState)
+        },
+        topBar = {
+            val destination = appState.currentTopLevelDestination
+            if (destination != null) {
+                TopAppBar(
+                    title = { Text(text = stringResource(id = destination.titleTextId)) },
+                    actions = {
+                        IconButton(onClick = { appState.setShowSettingsDialog(true) }) {
+                            Icon(Icons.Filled.Settings, contentDescription = "Settings")
+                        }
+                    },
+                    colors = TopAppBarDefaults.mediumTopAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.secondaryContainer
+                    )
+                )
+            }
         },
         contentColor = MaterialTheme.colorScheme.onBackground,
         bottomBar = {
@@ -81,6 +77,7 @@ fun RugApp(
     }
 }
 
+
 @Composable
 private fun RugBottomBar(
     destinations :List<TopLevelDestination>,
@@ -89,6 +86,7 @@ private fun RugBottomBar(
     modifier: Modifier = Modifier
 ) {
     NavigationBar(
+        containerColor = MaterialTheme.colorScheme.secondaryContainer
         ) {
         destinations.forEach { destination ->
             val selected = currentDestination?.hierarchy?.any{it.route?.contains(destination.name,true)?: false} ?: false

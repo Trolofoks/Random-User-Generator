@@ -11,12 +11,14 @@ val viewModelModule = module {
     viewModel {
         GeneratorViewModel(
             randomRepository = get(),
-            savedRepository = get()
+            savedRepository = get(),
+            settingsRepository = get()
         )
     }
     viewModel {
         FavoriteViewModel(
-            savedRepository = get()
+            savedRepository = get(),
+            settingsRepository = get()
         )
     }
     viewModel {
@@ -26,6 +28,8 @@ val viewModelModule = module {
         )
     }
     viewModel {
-        SettingsViewModel()
+        SettingsViewModel(
+            settingsRepository = get()
+        )
     }
 }

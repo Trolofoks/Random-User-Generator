@@ -18,8 +18,8 @@ import com.honey.randomusergenerator.R
 import com.honey.randomusergenerator.data.model.User
 import com.honey.randomusergenerator.ui.screens.favorite.contract.FavoriteState
 import com.honey.randomusergenerator.ui.screens.generator.contract.GeneratorEvent
-import com.honey.randomusergenerator.ui.screens.generator.view.part.BigInfoCardView
-import com.honey.randomusergenerator.ui.screens.generator.view.part.SmallUserCardView
+import com.honey.randomusergenerator.ui.part.BigInfoCardView
+import com.honey.randomusergenerator.ui.part.SmallUserCardView
 
 @Composable
 fun FavoriteViewShowFav(
@@ -30,7 +30,7 @@ fun FavoriteViewShowFav(
 ) {
     Surface() {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter){
-            LazyColumn(modifier = Modifier.fillMaxSize(0.95f).padding(top = 8.dp)){
+            LazyColumn(modifier = Modifier.fillMaxWidth(0.95f)){
                 for (user in state.users) {
                     item { SmallUserCardView(user = user, onCardClick = {
                         fullInfoClick?.invoke(it)
@@ -53,7 +53,9 @@ fun FavoriteViewShowFav(
                         onFavAdd?.invoke(user, fav)
                     }, modifier = Modifier
                         .fillMaxWidth(0.95f)
-                        .clickable(enabled = false) {})
+                        .clickable(enabled = false) {},
+                        exportLanguageFormat = state.exportLanguage
+                    )
                 }
             }
         }
