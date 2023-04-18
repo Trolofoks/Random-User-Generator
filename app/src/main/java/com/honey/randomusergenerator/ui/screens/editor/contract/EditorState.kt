@@ -13,6 +13,5 @@ sealed class EditorState: ViewState{
         val address: String = "",
         val number: String = ""
     ) : EditorState()
-    object Error: EditorState()
 }
 

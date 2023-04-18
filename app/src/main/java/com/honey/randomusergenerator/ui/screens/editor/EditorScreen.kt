@@ -7,7 +7,6 @@ import androidx.compose.runtime.State
 import com.honey.randomusergenerator.ui.screens.editor.contract.EditorEffect
 import com.honey.randomusergenerator.ui.screens.editor.contract.EditorEvent
 import com.honey.randomusergenerator.ui.screens.editor.contract.EditorState
-import com.honey.randomusergenerator.ui.screens.editor.view.fullscreen.EditorViewError
 import com.honey.randomusergenerator.ui.screens.editor.view.fullscreen.EditorViewLoading
 import com.honey.randomusergenerator.ui.screens.editor.view.fullscreen.EditorViewSaving
 import com.honey.randomusergenerator.ui.screens.editor.view.fullscreen.EditorViewShowEditor
@@ -32,9 +31,6 @@ fun EditorScreen(
                 }
             )
         }
-        is EditorState.Error -> {
-            EditorViewError()
-        }
         is EditorState.Saving -> {
             EditorViewSaving()
         }
@@ -42,10 +38,4 @@ fun EditorScreen(
             EditorViewLoading()
         }
     }
-
-    when(val effect = effect.value){
-        is EditorEffect.NavBack -> {}
-        null -> {}
-    }
-
 }

@@ -6,12 +6,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
-import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
@@ -22,8 +18,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.honey.randomusergenerator.R
@@ -88,7 +84,7 @@ fun GeneratorViewShowUsers(
                         }, modifier = Modifier
                             .fillMaxWidth(0.98f)
                             .align(Alignment.Center),
-                        exportLanguageFormat = state.exportLanguage
+                        exportCopyTypeFormat = state.exportCopyType
                     )
                 }
             }
@@ -110,7 +106,7 @@ fun GeneratorViewShowUsers(
                     }, modifier = Modifier
                         .fillMaxWidth(0.95f)
                         .clickable(enabled = false) {},
-                        exportLanguageFormat = state.exportLanguage
+                        exportCopyTypeFormat = state.exportCopyType
                     )
                 }
             }
@@ -142,7 +138,7 @@ fun RegenerateRowButton(
                     .weight(0.45f)
                     .height(48.dp)
             ) {
-                Text(text = "Regenerate!", style = MaterialTheme.typography.titleMedium)
+                Text(text = stringResource(id = R.string.regenerate), style = MaterialTheme.typography.titleMedium)
             }
         }
 

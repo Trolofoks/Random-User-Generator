@@ -26,7 +26,6 @@ class GeneratorViewModel(
         when(val state = viewState){
             is GeneratorState.Generating -> reduce(event, state)
             is GeneratorState.ShowUsers -> reduce(event, state)
-            is GeneratorState.Error -> reduce(event, state)
             is GeneratorState.Empty -> reduce(event, state)
         }
     }
@@ -52,12 +51,7 @@ class GeneratorViewModel(
             else -> {}
         }
     }
-    private fun reduce(event: GeneratorEvent, currentState: GeneratorState.Error){
-        when(event){
-            is GeneratorEvent.Refresh -> {}
-            else -> {}
-        }
-    }
+
     private fun reduce(event: GeneratorEvent, currentState: GeneratorState.Empty){
         when(event){
             is GeneratorEvent.Generate -> {
@@ -81,7 +75,7 @@ class GeneratorViewModel(
     }
 
     private fun performFullInfoClick(user: User, currentState: GeneratorState.ShowUsers){
-        viewState = currentState.copy(selectedUser = user, exportLanguage = settingsRepository.exportLanguage())
+        viewState = currentState.copy(selectedUser = user, exportCopyType = settingsRepository.exportLanguage())
     }
 
     private fun performHideFullInfo(currentState: GeneratorState.ShowUsers){
@@ -94,7 +88,7 @@ class GeneratorViewModel(
             val gotUsers = randomRepository.getUsers(amount)
             if (gotUsers.isNotEmpty()){
                 delay(1000)
-                viewState = GeneratorState.ShowUsers(gotUsers.toAppUsers(), exportLanguage = settingsRepository.exportLanguage())
+                viewState = GeneratorState.ShowUsers(gotUsers.toAppUsers(), exportCopyType = settingsRepository.exportLanguage())
             }
         }
     }

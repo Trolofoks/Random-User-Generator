@@ -8,19 +8,31 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.honey.randomusergenerator.R
 import com.honey.randomusergenerator.ui.screens.generator.contract.GeneratorState
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 @Composable
 fun GeneratorViewGenerating(
     state: GeneratorState.Generating
 ) {
-    val facts =  remember { mutableStateOf("") }
+    val listOfInteresting = listOf(
+        stringResource(id = R.string.interesting_1),
+        stringResource(id = R.string.interesting_2),
+        stringResource(id = R.string.interesting_3),
+        stringResource(id = R.string.interesting_4),
+        stringResource(id = R.string.interesting_5),
+        stringResource(id = R.string.interesting_6),
+        stringResource(id = R.string.interesting_7),
+        stringResource(id = R.string.interesting_8),
+        stringResource(id = R.string.interesting_9),
+    )
+    val factState =  remember { mutableStateOf("") }
     LaunchedEffect(key1 = "Key"){
-        interestingGenerator(facts)
+        interestingGenerator(factState, listOfInteresting)
     }
 
     Surface {
@@ -28,9 +40,9 @@ fun GeneratorViewGenerating(
             Column(modifier = Modifier
                 .fillMaxWidth(0.95f)
                 .fillMaxHeight(0.8f), horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(text = "Do NOT close the application", style = MaterialTheme.typography.headlineMedium, modifier = Modifier.padding(bottom = 32.dp))
-                Text(text = "Interesting Facts:", style = MaterialTheme.typography.bodySmall)
-                Text(text = facts.value, textAlign = TextAlign.Center, modifier = Modifier.padding(bottom = 32.dp))
+                Text(text = stringResource(id = R.string.do_not_close), style = MaterialTheme.typography.headlineMedium, modifier = Modifier.padding(bottom = 32.dp))
+                Text(text = stringResource(id = R.string.interesting_facts), style = MaterialTheme.typography.bodySmall)
+                Text(text = factState.value, textAlign = TextAlign.Center, modifier = Modifier.padding(bottom = 32.dp))
                 CircularProgressIndicator(modifier = Modifier.fillMaxWidth(0.5f))
 
             }
@@ -39,20 +51,10 @@ fun GeneratorViewGenerating(
 }
 
 
-suspend fun interestingGenerator(fact: MutableState<String>){
-    val hardCodeFacts = listOf<String>(
-        "Now you see interesting fact.",
-        "Maybe in future here you can see something interesting.",
-        "This is useless text.",
-        "Why are you gay?",
-        "You have a nice meal today?",
-        "This application created by just me one.",
-        "You can send some text to my mail, and maybe i will add it here.",
-        "When I type this I want to sleep, but don't worry, just a little.",
-        "If you read this, you cool boy/girl ha-ha."
-    )
-    fact.value = hardCodeFacts.random()
+suspend fun interestingGenerator(factState: MutableState<String>, facts : List<String>){
+    factState.value = facts.random()
     for (i in 0..100){
-        delay(6500)
-        fact.value = hardCodeFacts.random()
-    }}
+        delay(7500)
+        factState.value = facts.random()
+    }
+}

@@ -14,8 +14,6 @@ interface ViewEvent
 interface ViewState
 interface ViewEffect
 
-const val SIDE_EFFECT_KEY = "non-typical-unique-key"
-
 abstract class BaseViewModel<Event: ViewEvent, UiState: ViewState, Effect:ViewEffect>(
     initialState: UiState
 ): ViewModel() {

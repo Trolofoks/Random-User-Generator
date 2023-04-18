@@ -9,27 +9,28 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.honey.randomusergenerator.R
 import com.honey.randomusergenerator.ui.screens.favorite.contract.FavoriteState
 
 @Composable
 fun FavoriteViewEmpty(
     state: FavoriteState.Empty,
-    retryLoad: (() -> Unit)? = null 
 ) {
     Surface {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
             Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth(0.9f)) {
                 Text(
-                    text = "Hi, you don't have any saved users, try to generate some, and it add to favorite",
+                    text = stringResource(id = R.string.you_do_not_have_any_saved),
                     modifier = Modifier.padding(bottom = 32.dp),
                     textAlign = TextAlign.Center,
                     style = MaterialTheme.typography.titleMedium
                 )
                 Row {
-                    Text(text = "Yes, you need press button like this ->  ")
+                    Text(text = stringResource(id = R.string.try_press_this_button))
                     Icon(painter = rememberVectorPainter(image = Icons.Default.FavoriteBorder),
                         contentDescription = "Example")
                 }
@@ -37,10 +38,4 @@ fun FavoriteViewEmpty(
 
         }
     }
-}
-
-@Preview
-@Composable
-fun FavoriteViewEmptyPreview(){
-    FavoriteViewEmpty(state = FavoriteState.Empty)
 }

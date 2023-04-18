@@ -48,10 +48,10 @@ fun SmallUserCardView(
                     contentAlignment = Alignment.Center
                 ) {
                     CircularProgressIndicator(modifier = Modifier.size(54.dp))
-                    Log.d("MyLog", "avatar url or uri -> ${user.avatarURL}")
                     Image(
                         modifier = Modifier
-                            .size(64.dp).clip(CircleShape),
+                            .size(64.dp)
+                            .clip(CircleShape),
                         painter = rememberAsyncImagePainter(user.picture ?: user.avatarURL),
                         contentDescription = "Avatar",
                         contentScale = ContentScale.FillBounds
@@ -64,36 +64,22 @@ fun SmallUserCardView(
                         .size(64.dp),
                     verticalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    //TODO(Change to  created TextWithParam)
-                    Text(text = "Name is ${user.name}")
-                    Text(text = "Number is ${user.number}")
-                    Box(
-                        modifier = Modifier.fillMaxWidth(),
-                        contentAlignment = Alignment.BottomEnd
-                    ) {
-                        Text(
-                            text = "Click for Full Info",
-                            style = MaterialTheme.typography.bodySmall
-                        )
+                    Column(modifier = Modifier.padding(vertical = 4.dp)) {
+                        InfoItem(paramName = "Name", paramValue = user.name)
+                        InfoItem(paramName = "Number", paramValue = user.number)
                     }
+//                    Box(
+//                        modifier = Modifier.fillMaxWidth(),
+//                        contentAlignment = Alignment.BottomEnd
+//                    ) {
+//                        Text(
+//                            text = "Click for Full Info",
+//                            style = MaterialTheme.typography.bodySmall
+//                        )
+//                    }
                 }
             }
         }
     }
 }
 
-@Preview
-@Composable
-fun SUCVPreview() {
-    SmallUserCardView(user = User(
-        avatarURL = "https://randomuser.me/api/portraits/med/men/75.jpg",
-        name = "Test Name",
-        email = "testemail@example.com",
-        birthday = "7/2/1989",
-        address = "1790 Preston Rd",
-        number = "(438) 718-3995",
-        password = "members"
-    ),
-        onCardClick = {}
-    )
-}

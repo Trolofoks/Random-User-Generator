@@ -35,9 +35,9 @@ class SettingsViewModel(
                 Log.d("MyLog", " new value ${event.turnOn}")
                 viewState = currentState.copy(developerMode = event.turnOn)
             }
-            is SettingsEvent.LanguageSelect -> {
-                viewState = currentState.copy(selectedLanguage = event.language)
-                settingsRepository.exportLanguage(event.language)
+            is SettingsEvent.CopyMode -> {
+                viewState = currentState.copy(selectedLanguage = event.copy)
+                settingsRepository.exportLanguage(event.copy)
             }
             else -> {}
         }

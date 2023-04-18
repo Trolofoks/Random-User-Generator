@@ -18,11 +18,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ClipboardManager
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
-import com.honey.data.settings.model.Language
+import com.honey.data.settings.model.CopyType
 import com.honey.randomusergenerator.R
 import com.honey.randomusergenerator.data.model.User
 import com.honey.randomusergenerator.data.model.Holder
@@ -30,12 +30,12 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun BigInfoCardView(
+    modifier: Modifier = Modifier,
     user: User,
     favorite: ((user: User, add: Boolean) -> Unit?)? = null,
-    modifier: Modifier = Modifier,
     inFavChecked: Boolean = false,
-    exportLanguageFormat: String = Language.BASE
-) {
+    exportCopyTypeFormat: CopyType = CopyType.EDITED,
+    ) {
     val clipboardManager: ClipboardManager = LocalClipboardManager.current
 
     val addInFavChecked = remember { mutableStateOf(inFavChecked) }
@@ -73,23 +73,25 @@ fun BigInfoCardView(
                                 addInFavChecked.value = it
                             }) {
                             if (addInFavChecked.value) {
-                                showSnackbar("Added to favorite")
+                                showSnackbar(stringResource(id = R.string.added_to_favorite))
                                 Icon(
                                     tint = MaterialTheme.colorScheme.secondary,
                                     painter = rememberVectorPainter(image = Icons.Default.Favorite),
-                                    contentDescription = "Remove from Favorite"
+                                    contentDescription = stringResource(id = R.string.remove_from_favorite)
                                 )
                             } else {
                                 Icon(
                                     tint = MaterialTheme.colorScheme.secondary,
                                     painter = rememberVectorPainter(image = Icons.Default.FavoriteBorder),
-                                    contentDescription = "Add to Favorite"
+                                    contentDescription = stringResource(id = R.string.added_to_favorite)
                                 )
                             }
                         }
+                        val snackbarCopyText = stringResource(id = R.string.copied)
+                        val snackbarCopyTextRaw = stringResource(id = R.string.raw_copied)
                         IconButton(onClick = {
-                            when(exportLanguageFormat){
-                                Language.BASE -> {
+                            when(exportCopyTypeFormat){
+                                CopyType.EDITED -> {
                                     clipboardManager.setText(
                                         AnnotatedString(buildString {
                                             append("Name:\n${user.name}\n\n")
@@ -101,12 +103,13 @@ fun BigInfoCardView(
                                             append("Image:\n${user.avatarURL}")
                                         })
                                     )
-                                    showSnackbar("Copied to Clipboard")
+                                    showSnackbar(snackbarCopyText)
                                 }
-                                Language.KOTLIN -> {
+                                CopyType.RAW -> {
                                     clipboardManager.setText(AnnotatedString(user.toString()))
-                                    showSnackbar("Copied to Clipboard as Kotlin")
+                                    showSnackbar(snackbarCopyTextRaw)
                                 }
+                                else -> {}
                             }
                         }, modifier = Modifier.align(Alignment.TopStart)) {
                             Icon(
@@ -143,7 +146,7 @@ fun BigInfoCardView(
 }
 
 @Composable
-private fun InfoItem(paramName: String, paramValue: String) {
+fun InfoItem(paramName: String, paramValue: String) {
     val clipboardManager: ClipboardManager = LocalClipboardManager.current
 
     Row(
@@ -173,20 +176,4 @@ private fun InfoItem(paramName: String, paramValue: String) {
             color = MaterialTheme.colorScheme.onSecondary
         )
     }
-}
-
-@Preview
-@Composable
-fun GICVPreview() {
-    BigInfoCardView(
-        user = User(
-            avatarURL = "https://randomuser.me/api/portraits/med/men/75.jpg",
-            name = "Misty Cooper",
-            email = "mistycooper@example.com",
-            birthday = "2/4/1949",
-            address = "8367 Cackson St",
-            number = "(965) 464-1400",
-            password = "ernie",
-        )
-    )
 }

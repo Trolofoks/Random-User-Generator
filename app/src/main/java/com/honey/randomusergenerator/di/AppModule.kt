@@ -27,13 +27,4 @@ val appModule = module {
         get<Retrofit>().create(RandomUserApi::class.java)
     }
 
-    //TODO
-    suspend fun <T> makeApiCall(
-        dispatcher: CoroutineDispatcher,
-        call: suspend () -> T
-    ): Result<T> = runCatching {
-        withContext(dispatcher) {
-            call.invoke()
-        }
-    }
 }

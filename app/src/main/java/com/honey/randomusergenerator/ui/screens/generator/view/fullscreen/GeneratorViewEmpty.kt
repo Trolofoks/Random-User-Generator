@@ -13,10 +13,11 @@ import androidx.compose.ui.Alignment.Companion.BottomEnd
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.honey.randomusergenerator.R
 import com.honey.randomusergenerator.ui.screens.generator.contract.GeneratorState
 import com.honey.randomusergenerator.ui.part.BigInfoCardView
-import com.honey.randomusergenerator.ui.part.GICVPreview
 
 @Composable
 fun GeneratorViewEmpty(
@@ -44,12 +45,12 @@ fun GeneratorViewEmpty(
                         .padding(12.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(text = "Want to Generate Users?")
+                    Text(text = stringResource(id = R.string.want_to_generate))
                     Counter(counter = counter)
                     Button(
                         onClick = { onGenerate.invoke(counter.value) }
                     ) {
-                        Text(text = "Generate!")
+                        Text(text = stringResource(id = R.string.generator))
                     }
                 }
             }

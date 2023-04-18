@@ -18,7 +18,7 @@ fun FavoriteScreen(
 ) {
     when(val state = state.value){
         is FavoriteState.Empty -> {
-            FavoriteViewEmpty(state = state, retryLoad = {})
+            FavoriteViewEmpty(state = state)
         }
         is FavoriteState.Loading -> {
             FavoriteViewLoading(state = state)
@@ -37,10 +37,5 @@ fun FavoriteScreen(
                 }
             )
         }
-    }
-
-    when(val effect = effect.value){
-        is FavoriteEffect.NavBack -> {}
-        null -> {}
     }
 }

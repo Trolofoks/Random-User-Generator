@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
-import com.honey.data.settings.model.Language
+import com.honey.data.settings.model.CopyType
 import com.honey.randomusergenerator.R
 import com.honey.randomusergenerator.ui.screens.settings.contracts.SettingsEvent
 import com.honey.randomusergenerator.ui.screens.settings.contracts.SettingsState
@@ -39,7 +39,7 @@ fun SettingsDialog(
                 is SettingsState.Show -> {
                     val expanded = remember{ mutableStateOf(false)}
                     Column(Modifier.fillMaxWidth()) {
-                        Text(text = "Export type", style = MaterialTheme.typography.titleSmall, modifier = Modifier.padding(top = 12.dp))
+                        Text(text = stringResource(id = R.string.copy_type), style = MaterialTheme.typography.titleSmall, modifier = Modifier.padding(top = 12.dp))
                         Card(modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 8.dp)
@@ -51,8 +51,8 @@ fun SettingsDialog(
                                     .padding(vertical = 12.dp, horizontal = 4.dp),
                                 horizontalArrangement = Arrangement.SpaceBetween) {
                                 Row {
-                                    Text(text = "Selected: ")
-                                    Text(text = state.selectedLanguage)
+                                    Text(text = stringResource(id = R.string.selected))
+                                    Text(text = state.selectedLanguage.type)
                                 }
                                 if (expanded.value){
                                     Icon(
@@ -73,13 +73,13 @@ fun SettingsDialog(
                             expanded = expanded.value,
                             onDismissRequest = { expanded.value = false },
                         ) {
-                            DropdownMenuItem(text = { Text(text = "Base Language") }, onClick = {
+                            DropdownMenuItem(text = { Text(text = stringResource(id = R.string.edited)) }, onClick = {
                                 expanded.value = false
-                                onEventSend.invoke(SettingsEvent.LanguageSelect(language = Language.BASE))
+                                onEventSend.invoke(SettingsEvent.CopyMode(copy = CopyType.EDITED))
                             })
-                            DropdownMenuItem(text = { Text(text = "Kotlin/Java") }, onClick = {
+                            DropdownMenuItem(text = { Text(text = stringResource(id = R.string.raw)) }, onClick = {
                                 expanded.value = false
-                                onEventSend.invoke(SettingsEvent.LanguageSelect(language = Language.KOTLIN))
+                                onEventSend.invoke(SettingsEvent.CopyMode(copy = CopyType.RAW))
                             })
                         }
                     }

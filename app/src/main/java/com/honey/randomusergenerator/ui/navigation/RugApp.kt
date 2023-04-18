@@ -11,6 +11,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
+import com.honey.randomusergenerator.R
 import com.honey.randomusergenerator.data.model.Holder
 import com.honey.randomusergenerator.ui.navigation.route.SettingsDialogRoute
 
@@ -32,10 +33,11 @@ fun RugApp(
 
     val isOffline = appState.isOffline.collectAsState()
 
+    val offlineText = stringResource(id = R.string.no_internet)
     LaunchedEffect(isOffline.value) {
         if (isOffline.value) {
             snackbarHostState.showSnackbar(
-                message = "No Internet",
+                message = offlineText,
                 duration = SnackbarDuration.Indefinite
             )
         }

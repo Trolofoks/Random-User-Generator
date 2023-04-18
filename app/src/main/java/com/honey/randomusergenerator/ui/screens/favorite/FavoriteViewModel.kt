@@ -80,11 +80,11 @@ class FavoriteViewModel(
         viewModelScope.launch {
             val users = loadUsers()
 
-             if (users.isNotEmpty()){
+            if (users.isNotEmpty()){
                 viewState = FavoriteState.ShowFav(users, currentFullInfo, settingsRepository.exportLanguage())
             } else {
                 viewState = FavoriteState.Empty
-             }
+            }
         }
     }
 

@@ -5,7 +5,7 @@ import com.honey.randomusergenerator.data.model.User
 
 fun com.honey.data.model.User.toAppUser(): User {
     return User(
-        avatarURL = pictureUrl.orEmpty(),
+        avatarURL = pictureUrl,
         name = name,
         email = email,
         birthday = birthday,

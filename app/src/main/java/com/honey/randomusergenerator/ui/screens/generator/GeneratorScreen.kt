@@ -7,7 +7,6 @@ import com.honey.randomusergenerator.ui.screens.generator.contract.GeneratorEffe
 import com.honey.randomusergenerator.ui.screens.generator.contract.GeneratorEvent
 import com.honey.randomusergenerator.ui.screens.generator.contract.GeneratorState
 import com.honey.randomusergenerator.ui.screens.generator.view.fullscreen.GeneratorViewEmpty
-import com.honey.randomusergenerator.ui.screens.generator.view.fullscreen.GeneratorViewError
 import com.honey.randomusergenerator.ui.screens.generator.view.fullscreen.GeneratorViewGenerating
 import com.honey.randomusergenerator.ui.screens.generator.view.fullscreen.GeneratorViewShowUsers
 
@@ -42,14 +41,6 @@ fun GeneratorScreen(
                 }
             )
         }
-        is GeneratorState.Error -> {
-            GeneratorViewError(
-                state = state,
-                onRefresh = {
-                    onEventSent.invoke(GeneratorEvent.Refresh)
-                }
-            )
-        }
         is GeneratorState.Empty -> {
             GeneratorViewEmpty(
                 state = state,
@@ -60,11 +51,4 @@ fun GeneratorScreen(
         }
     }
 
-    LaunchedEffect(key1 = effect.value){
-        effect.value?.let {effect ->
-            when(effect){
-                else -> {}
-            }
-        }
-    }
 }
